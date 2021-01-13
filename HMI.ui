@@ -11,7 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>零件号识别</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(207,207,207)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
@@ -20,13 +23,37 @@
      <height>731</height>
     </size>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QGridLayout" name="gridLayout">
+    <property name="topMargin">
+     <number>25</number>
+    </property>
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,2">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>20</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout" stretch="10,1">
         <item>
          <widget class="ImageLabel" name="imageLabel">
+          <property name="styleSheet">
+           <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -37,6 +64,9 @@
           <property name="spacing">
            <number>15</number>
           </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QPushButton" name="btnScan">
             <property name="sizePolicy">
@@ -44,6 +74,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
             </property>
             <property name="text">
              <string>扫描交接单</string>
@@ -58,6 +91,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+            </property>
             <property name="text">
              <string>识别零件</string>
             </property>
@@ -70,6 +106,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
             </property>
             <property name="text">
              <string>报告</string>
@@ -84,6 +123,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+            </property>
             <property name="text">
              <string>清空</string>
             </property>
@@ -96,7 +138,7 @@
       <item>
        <widget class="PartTable" name="partTable">
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">font-size: 20px;height: 33px;border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
         </property>
         <property name="showGrid">
          <bool>true</bool>
@@ -105,19 +147,31 @@
          <bool>true</bool>
         </attribute>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>145</number>
+         <number>135</number>
         </attribute>
         <attribute name="horizontalHeaderHighlightSections">
          <bool>true</bool>
         </attribute>
         <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>125</number>
+         <number>50</number>
         </attribute>
         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
          <bool>false</bool>
         </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>50</number>
+        </attribute>
+        <attribute name="verticalHeaderHighlightSections">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderMinimumSectionSize">
+         <number>50</number>
         </attribute>
         <column>
          <property name="text">
@@ -125,7 +179,7 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <pointsize>14</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -147,7 +201,7 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <pointsize>14</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -169,7 +223,7 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>12</pointsize>
+           <pointsize>14</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -195,28 +249,6 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1118</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="nativeMenuBar">
-    <bool>true</bool>
-   </property>
-   <widget class="QMenu" name="menuSettings">
-    <property name="title">
-     <string>设置</string>
-    </property>
-   </widget>
-   <addaction name="menuSettings"/>
   </widget>
  </widget>
  <customwidgets>

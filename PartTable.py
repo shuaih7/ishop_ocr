@@ -26,6 +26,7 @@ class PartTable(QTableWidget):
         self.match_color = QColor(6, 168, 255)
         self.check_color = QColor(6, 255, 168)
         self.scrap_color = QColor(255, 60, 6)
+        self.background_color = QColor(207, 207, 207)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         
@@ -66,7 +67,7 @@ class PartTable(QTableWidget):
             item.setBackground(QBrush(self.scrap_color))
         elif item.text() == "Scrap":
             item.setText("Unchecked")
-            item.setBackground(QBrush(QColor(255, 255, 255)))
+            item.setBackground(QBrush(self.background_color))
             
     def clearRows(self):
         self.clearContents()
