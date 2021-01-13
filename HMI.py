@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-Created on 11.19.2020
-Updated on 12.31.2020
+Created on 01.13.2021
+Updated on 12.31.2021
 
 Author: haoshaui@handaotech.com
 '''
@@ -28,6 +28,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog, QMe
 
 #from third_party import gxipy as gx
 from log import getLogger
+#from Workers import videoWorker
 
 
 class MainWindow(QMainWindow):
@@ -40,12 +41,37 @@ class MainWindow(QMainWindow):
         config_file = os.path.join(abs_path, "config.json")
         with open (config_file, "r") as f: 
             self.config_matrix = json.load(f)
-        #self.imageLabel.setConfig(self.config_matrix)
+            
+        self.mode = self.config_matrix["mode"]
+        self.imageLabel.setConfig(self.config_matrix)
         
         # Config the devices
-        self.logger = getLogger(os.path.join(abs_path,"log"), log_name="logging.log")
         self.camera = None
         self.lighting = None
+        self.logger = getLogger(os.path.join(abs_path,"log"), log_name="logging.log")
+        self.logger_flags = {
+            "debug":    self.logger.debug,
+            "info":     self.logger.info,
+            "warning":  self.logger.warning,
+            "error":    self.logger.error,
+            "critical": self.logger.critical}
+            
+        # Initialization
+        self.image = None
+            
+    def liveStream(self):
+        if self.mode.lower() == "test":
+            while True:
+                image_file = os.path.join(abs_path, r"data/imgs/sample.jpg")
+                self.image = cv2.imread(image_file, cv2.IMREAD_COLOR)
+                self.imageLabel.refresh(self.image)
+                QApplication.processEvents()
+        else:
+            # TODO: add camera functions here ...
+            QApplication.processEvents()
+        
+    def message(self, msg, flag="info"): 
+        self.logger_flags[flag](msg)
         
     def closeEvent(self, ev):   
         reply = QMessageBox.question(
