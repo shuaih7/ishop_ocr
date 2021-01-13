@@ -33,9 +33,9 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1">
           <property name="spacing">
-           <number>20</number>
+           <number>15</number>
           </property>
           <item>
            <widget class="QPushButton" name="btnScan">
@@ -73,6 +73,19 @@
             </property>
             <property name="text">
              <string>报告</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnClear">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>清空</string>
             </property>
            </widget>
           </item>
@@ -189,5 +202,76 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btnScan</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>recDocument()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>721</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>77</x>
+     <y>807</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnOcr</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>recParts()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>261</x>
+     <y>707</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>252</x>
+     <y>859</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnReport</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createReport()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>416</x>
+     <y>705</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>420</x>
+     <y>866</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnClear</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>clearAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>569</x>
+     <y>717</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>544</x>
+     <y>875</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>recDocument()</slot>
+  <slot>recParts()</slot>
+  <slot>createReport()</slot>
+  <slot>clearAll()</slot>
+ </slots>
 </ui>

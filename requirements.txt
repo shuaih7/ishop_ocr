@@ -1,3 +1,4 @@
 pyqt5==5.10.1
-paddlepaddle==1.8.5.post107
 opoencv-python==4.2.0.32
+paddlepaddle==1.8.5.post107
+paddleocr==1.1.1

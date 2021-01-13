@@ -1,3 +1,41 @@
 {
-	"mode": "test"
+	"Global": {
+		"mode": "test",
+		"use_gpu": false
+	},
+	
+	"Camera": {},
+
+	"Light": {},
+
+	"Model_OCR":{
+		"build_params":{
+			"lang": "en",
+			"use_angle_cls": true,
+			"cls_model_dir": null,
+			"det_model_dir": null,
+			"rec_model_dir": null
+		},
+		"infer_params":{
+			"cls": false,
+			"det": true,
+			"rec": true
+		}
+	},
+
+	"Model_DOC":{
+		"build_params":{
+			"lang": "en",
+			"use_angle_cls": true,
+			"cls_model_dir": null,
+			"det_model_dir": null,
+			"rec_model_dir": null
+		},
+		"infer_params":{
+			"cls": false,
+			"det": true,
+			"rec": true
+		}
+
+	}
 }
