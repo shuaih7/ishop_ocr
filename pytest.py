@@ -17,6 +17,4 @@ def build_person(id, name, age, hobby):
     
 if __name__ == "__main__":
     #build_person("212780558", **params)
-    number = "12345679"
-    number = number[:-4]+"Z"+number[-2:]
-    print(number)
+    if "age" in params: print("Yeah!")

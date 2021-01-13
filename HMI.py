@@ -15,7 +15,6 @@ import datetime
 import json
 import time
 import numpy as np
-import glob as gb
 
 abs_path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(abs_path)
@@ -24,8 +23,8 @@ from paddleocr import PaddleOCR
 from PyQt5.uic import loadUi
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtGui import QImage, QPixmap, QFont
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot, QEvent, QSize
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QFileDialog, QMessageBox
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem
 
 #from third_party import gxipy as gx
 from log import getLogger
@@ -45,6 +44,7 @@ class MainWindow(QMainWindow):
             
         self.mode = self.config_matrix["Global"]["mode"]
         self.imageLabel.setConfig(self.config_matrix)
+        self.partTable.setConfig(self.config_matrix)
         
         # Config the devices
         self.camera = None
@@ -94,9 +94,10 @@ class MainWindow(QMainWindow):
             results = self.model_doc.ocr(image, **params)
             
             for result in results:
-                self.part_list.append(result[1][0])
+                self.part_list.append(["1620M0298Z01", [0,0]])
+                #self.part_list.append(result[1]) # TODO: result[1] -> [result[1][0], position]
             
-            self.updateTable()
+            self.matchTable()
 
     @pyqtSlot()        
     def recDocument(self):
@@ -106,12 +107,16 @@ class MainWindow(QMainWindow):
         params = self.config_matrix["Model_DOC"]["infer_params"]
         results = self.model_doc.ocr(image, **params)
         
+        index = 0
         for result in results:
             number = result[1][0]
             if self.isValidNumber(number): 
-                 self.scan_dict[number] = {"position": None, "status": None}
+                number = self.formatNumber(number)
+                self.scan_dict[number] = {"position": "-", "status": "Unchecked", "id": index}
+                index += 1
         
         self.updateTable()
+        self.matchTable()
 
     @pyqtSlot()
     def createReport(self):
@@ -119,11 +124,19 @@ class MainWindow(QMainWindow):
         
     @pyqtSlot()
     def clearAll(self):
+        self.partTable.clearRows()
         self.scan_dict = {}
         self.part_list = []
+    
+    @pyqtSlot(QTableWidgetItem)    
+    def updateStatus(self, item):
+        self.partTable.updateStatus(item)
         
     def updateTable(self):
-        pass
+        self.partTable.updateRows(self.scan_dict)
+        
+    def matchTable(self):
+        self.partTable.matchRows(self.part_list, self.scan_dict)
         
     def isValidNumber(self, number):
         if len(number)>=10 and number[4]=="M":

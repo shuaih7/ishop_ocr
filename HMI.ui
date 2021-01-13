@@ -94,15 +94,30 @@
        </layout>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="PartTable" name="partTable">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="showGrid">
          <bool>true</bool>
         </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>145</number>
+        </attribute>
         <attribute name="horizontalHeaderHighlightSections">
          <bool>true</bool>
         </attribute>
         <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>0</number>
+         <number>125</number>
+        </attribute>
+        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
         </attribute>
         <column>
          <property name="text">
@@ -176,7 +191,15 @@
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+  </widget>
   <widget class="QMenuBar" name="menubar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -185,6 +208,9 @@
      <height>26</height>
     </rect>
    </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
+   </property>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
      <string>设置</string>
@@ -192,13 +218,17 @@
    </widget>
    <addaction name="menuSettings"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
   <customwidget>
    <class>ImageLabel</class>
    <extends>QLabel</extends>
    <header location="global">ImageLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PartTable</class>
+   <extends>QTableWidget</extends>
+   <header location="global">PartTable.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -267,11 +297,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>partTable</sender>
+   <signal>itemClicked(QTableWidgetItem*)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>updateStatus()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>803</x>
+     <y>663</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>558</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>recDocument()</slot>
   <slot>recParts()</slot>
   <slot>createReport()</slot>
   <slot>clearAll()</slot>
+  <slot>updateStatus()</slot>
  </slots>
 </ui>
