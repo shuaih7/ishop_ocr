@@ -162,7 +162,7 @@
          <number>30</number>
         </property>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,1">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,1">
           <property name="spacing">
            <number>10</number>
           </property>
@@ -189,9 +189,15 @@
             </property>
             <item>
              <widget class="QLabel" name="logoLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="maximumSize">
                <size>
-                <width>225</width>
+                <width>235</width>
                 <height>200</height>
                </size>
               </property>
@@ -253,6 +259,9 @@
                   <height>33</height>
                  </size>
                 </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -284,6 +293,9 @@
                   <width>25</width>
                   <height>25</height>
                  </size>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -320,6 +332,9 @@
                   <height>30</height>
                  </size>
                 </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -355,6 +370,9 @@
                   <height>30</height>
                  </size>
                 </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -386,6 +404,12 @@
                   <width>30</width>
                   <height>30</height>
                  </size>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
