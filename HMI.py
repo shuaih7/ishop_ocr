@@ -11,7 +11,6 @@ Author: haoshaui@handaotech.com
 import os
 import sys
 import cv2
-import datetime
 import json
 import time
 import numpy as np
@@ -28,6 +27,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidget
 
 import gxipy as gx
 from log import getLogger
+from utils import write_excel
 from ConfigWidget import ConfigWidget
 
 
@@ -125,10 +125,13 @@ class MainWindow(QMainWindow):
                 self.messager("Successfully connected camera {}.".format(SN), flag="info")
                 
             except Exception as expt:
-                self.camera.stream_off()
-                self.camera.close_device()
-                self.messager(expt, flag="warning")
-                self.liveStream()
+                if self.camera is not None:
+                    self.camera.stream_off()
+                    self.camera.close_device()
+                    self.messager(expt, flag="warning")
+                    self.liveStream()
+                else:
+                    self.messager(expt, flag="error")
                 return
             
             self.isLive = True
@@ -170,6 +173,7 @@ class MainWindow(QMainWindow):
         if len(self.scan_dict) == 0:
             QMessageBox.warning(self,"警告", "请先扫描交接单！", QMessageBox.Yes)
         else:
+            if self.image is None: return
             self.part_list = []
             image = self.image
             params = self.config_matrix["Model_OCR"]["infer_params"]
@@ -202,7 +206,10 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def createReport(self):
-        pass
+        self.messager("Creating reports ...", flag="info")
+        save_dir = os.path.join(abs_path, "data/report")
+        match_list = self.partTable.getCheckList()
+        write_excel(match_list, save_dir)
         
     @pyqtSlot()
     def clearAll(self):

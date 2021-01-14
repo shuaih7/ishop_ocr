@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-Created on 11.20.2020
-Updated on 11.25.2020
+Created on 01.14.2021
+Created on 01.14.2021
 
 Author: haoshaui@handaotech.com
 '''
@@ -12,6 +12,8 @@ import os
 import cv2
 import sys
 import numpy as np
+
+from .excel import write_excel
 
 
 abs_path = os.path.abspath(os.path.dirname(__file__))
@@ -26,11 +28,13 @@ def draw_boxes(image, boxes=[], scale=(1.0,1.0), color=(255,0,0), thickness=2):
         image = cv2.rectangle(image, start_point, end_point, color=color, thickness=thickness)
     return image
     
+    
 def create_background(size, seed=0):
     image = np.ones(size, dtype=np.uint8) * seed
     save_dir = os.path.join(abs_path, "icon")
     save_name = os.path.join(save_dir, "background.jpg")
     cv2.imwrite(save_name, image)
+    
     
 def transparent_background(img_file, save_name, thresh=10):
     image = cv2.imread(img_file, cv2.IMREAD_COLOR)

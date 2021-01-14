@@ -1,10 +1,10 @@
 {
     "Global": {
-        "mode": "inspect",
+        "mode": "test",
         "use_gpu": false
     },
     "Camera": {
-        "DeviceSerialNumber": "NR0190090349",
+        "DeviceSerialNumber": "NR019009034",
         "ExposureTime": 2000,
         "Gain": 20,
         "Binning": 4

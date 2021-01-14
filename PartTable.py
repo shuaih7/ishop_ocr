@@ -75,6 +75,14 @@ class PartTable(QTableWidget):
             item.setText(status)
             item.setBackground(QBrush(self.background_color))
         self.info_dict[number] = status
+        
+    def getCheckList(self):
+        check_list = []
+        for i in range(self.rowCount()):
+            if self.item(i,1).text() != "-" and self.item(i,2).text() != "报废":
+                check_list.append(self.item(i,0).text())
+        
+        return check_list
             
     def clearRows(self):
         self.clearContents()

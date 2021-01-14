@@ -1,5 +1,17 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+'''
+Created on 01.14.2021
+Created on 01.14.2021
+
+Author: haoshaui@handaotech.com
+'''
+
+import os
 import xlwt
 import time
+
 
 #设置表格样式
 def set_style(name, height, bold=False):
@@ -28,9 +40,9 @@ def write_title(sheet, base_space=2, sr=0, sc=0):
     
     # Create the second row
     sr += 1
-    sheet.write(sr,sc,"零件号",set_style('Times New Roman',220,True))
+    sheet.write(sr,sc,"零件号:",set_style('Times New Roman',220,True))
     sheet.write_merge(sr,sr,sc+1,sc+base_space,' ')#合并行单元格
-    sheet.write(sr,sc+base_space+1,"批次号",set_style('Times New Roman',220,True))
+    sheet.write(sr,sc+base_space+1,"批次号:",set_style('Times New Roman',220,True))
     sheet.write_merge(sr,sr,sc+base_space+2,sc+2*base_space+1,' ')#合并行单元格
     sheet.write_merge(sr,sr,sc+2*base_space+2,sc+2*base_space+5,' ')#合并行单元格
     
@@ -53,19 +65,21 @@ def write_content(sheet, index=0, number=' ', sr=3, sc=0, align=10):
 
     return sheet
 
-def write_excel():
+def write_excel(match_list, save_dir):
     f = xlwt.Workbook()
     
     base_space = 2
     sr, sc = 0, 0
     sheet = f.add_sheet('铸件交接单', cell_overwrite_ok=True)
     sheet, rows, align = write_title(sheet, base_space, sr, sc)
-    sheet = write_content(sheet, 0, r"26199AS/N", rows, sc, align)
-    sheet = write_content(sheet, 1, r"26199AS/N", rows+1, sc, align)
     
-    f.save('practice.xls')
+    for i, number in enumerate(match_list):
+        sheet = write_content(sheet, i, number, rows+i, sc, align)
+    
+    timestr = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) 
+    save_name = os.path.join(save_dir, timestr + ".xls")
+    f.save(save_name)
 
 
 if __name__ == '__main__':
-    timestr = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) 
-    print(timestr)
+    write_excel()
