@@ -41,6 +41,7 @@ class PartTable(QTableWidget):
             self.setItem(row, 1, QTableWidgetItem(info_dict[number]["position"]))
             self.setItem(row, 2, QTableWidgetItem(info_dict[number]["status"]))
             
+            self.item(row, 0).setToolTip(number)
             self.item(row, 0).setTextAlignment(Qt.AlignCenter)
             self.item(row, 1).setTextAlignment(Qt.AlignCenter)
             self.item(row, 2).setTextAlignment(Qt.AlignCenter)

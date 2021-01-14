@@ -321,7 +321,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>icon/save.png</normaloff>icon/save.png</iconset>
+            <normaloff>data/icons/save.png</normaloff>data/icons/save.png</iconset>
           </property>
          </widget>
         </item>
@@ -335,7 +335,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>icon/exit_icon.png</normaloff>icon/exit_icon.png</iconset>
+            <normaloff>data/icons/exit_icon.png</normaloff>data/icons/exit_icon.png</iconset>
           </property>
          </widget>
         </item>
@@ -483,6 +483,9 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout" stretch="8,2,1,1">
+        <property name="topMargin">
+         <number>5</number>
+        </property>
         <item>
          <spacer name="horizontalSpacer_6">
           <property name="orientation">
@@ -506,7 +509,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>icon/save.png</normaloff>icon/save.png</iconset>
+            <normaloff>data/icons/save.png</normaloff>data/icons/save.png</iconset>
           </property>
          </widget>
         </item>
@@ -520,7 +523,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>icon/exit_icon.png</normaloff>icon/exit_icon.png</iconset>
+            <normaloff>data/icons/exit_icon.png</normaloff>data/icons/exit_icon.png</iconset>
           </property>
          </widget>
         </item>
@@ -1027,7 +1030,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>icon/save.png</normaloff>icon/save.png</iconset>
+            <normaloff>data/icons/save.png</normaloff>data/icons/save.png</iconset>
           </property>
          </widget>
         </item>
@@ -1041,7 +1044,7 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>icon/exit_icon.png</normaloff>icon/exit_icon.png</iconset>
+            <normaloff>data/icons/exit_icon.png</normaloff>data/icons/exit_icon.png</iconset>
           </property>
          </widget>
         </item>

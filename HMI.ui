@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1118</width>
-    <height>756</height>
+    <width>1227</width>
+    <height>763</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>750</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>零件号识别</string>
@@ -27,143 +33,23 @@
     <string notr="true"/>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <property name="topMargin">
-     <number>25</number>
-    </property>
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,8">
       <property name="spacing">
-       <number>30</number>
+       <number>20</number>
       </property>
       <property name="leftMargin">
-       <number>20</number>
+       <number>15</number>
       </property>
       <property name="topMargin">
-       <number>5</number>
+       <number>15</number>
       </property>
       <property name="rightMargin">
-       <number>20</number>
+       <number>15</number>
       </property>
       <property name="bottomMargin">
-       <number>5</number>
+       <number>15</number>
       </property>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout" stretch="10,1">
-        <property name="spacing">
-         <number>15</number>
-        </property>
-        <item>
-         <widget class="ImageLabel" name="imageLabel">
-          <property name="styleSheet">
-           <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(222,222,222)</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,3,3,3,1">
-          <property name="spacing">
-           <number>15</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="btnScan">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
-            </property>
-            <property name="text">
-             <string>扫描交接单</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnOcr">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
-            </property>
-            <property name="text">
-             <string>识别零件</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnReport">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
-            </property>
-            <property name="text">
-             <string>报告</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnClear">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
-            </property>
-            <property name="text">
-             <string>清空</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="betConfig">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>data/icons/setting.png</normaloff>data/icons/setting.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>32</width>
-              <height>32</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
       <item>
        <widget class="PartTable" name="partTable">
         <property name="styleSheet">
@@ -270,6 +156,257 @@
         </column>
        </widget>
       </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3" stretch="6,1">
+        <property name="spacing">
+         <number>30</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,1">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="ImageLabel" name="imageLabel">
+            <property name="styleSheet">
+             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(222,222,222)</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,2">
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="logoLabel">
+              <property name="maximumSize">
+               <size>
+                <width>225</width>
+                <height>200</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap>data/icons/HDTech.png</pixmap>
+              </property>
+              <property name="scaledContents">
+               <bool>true</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout" stretch="3,3,3,3,3">
+              <property name="spacing">
+               <number>25</number>
+              </property>
+              <property name="leftMargin">
+               <number>15</number>
+              </property>
+              <property name="rightMargin">
+               <number>15</number>
+              </property>
+              <property name="bottomMargin">
+               <number>30</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="btnScan">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                </property>
+                <property name="text">
+                 <string>扫描交接单</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>data/icons/scan.png</normaloff>data/icons/scan.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>33</width>
+                  <height>33</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnOcr">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                </property>
+                <property name="text">
+                 <string>识别零件</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>data/icons/startdet.png</normaloff>data/icons/startdet.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>25</width>
+                  <height>25</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnReport">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>生成检测报告</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                </property>
+                <property name="text">
+                 <string>报告</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>data/icons/report.png</normaloff>data/icons/report.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>30</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnClear">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>清除已识别内容</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                </property>
+                <property name="text">
+                 <string>清除</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>data/icons/reset.png</normaloff>data/icons/reset.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>30</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="betConfig">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>150</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                </property>
+                <property name="text">
+                 <string>设置</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>data/icons/setting.png</normaloff>data/icons/setting.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>30</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="statusLabel">
+          <property name="styleSheet">
+           <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(222,222,222)</string>
+          </property>
+          <property name="text">
+           <string>欢迎使用！</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </item>
    </layout>
@@ -301,12 +438,12 @@
    <slot>recDocument()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>118</x>
-     <y>712</y>
+     <x>113</x>
+     <y>348</y>
     </hint>
     <hint type="destinationlabel">
      <x>77</x>
-     <y>755</y>
+     <y>749</y>
     </hint>
    </hints>
   </connection>
@@ -317,12 +454,12 @@
    <slot>recParts()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>261</x>
-     <y>707</y>
+     <x>112</x>
+     <y>424</y>
     </hint>
     <hint type="destinationlabel">
      <x>252</x>
-     <y>755</y>
+     <y>749</y>
     </hint>
    </hints>
   </connection>
@@ -333,12 +470,12 @@
    <slot>createReport()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>416</x>
-     <y>705</y>
+     <x>123</x>
+     <y>500</y>
     </hint>
     <hint type="destinationlabel">
      <x>420</x>
-     <y>755</y>
+     <y>749</y>
     </hint>
    </hints>
   </connection>
@@ -349,12 +486,12 @@
    <slot>clearAll()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>592</x>
-     <y>712</y>
+     <x>111</x>
+     <y>573</y>
     </hint>
     <hint type="destinationlabel">
      <x>544</x>
-     <y>755</y>
+     <y>749</y>
     </hint>
    </hints>
   </connection>
@@ -365,8 +502,8 @@
    <slot>updateStatus()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>803</x>
-     <y>663</y>
+     <x>991</x>
+     <y>645</y>
     </hint>
     <hint type="destinationlabel">
      <x>558</x>
@@ -381,12 +518,12 @@
    <slot>systemConfig()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>670</x>
-     <y>693</y>
+     <x>196</x>
+     <y>651</y>
     </hint>
     <hint type="destinationlabel">
      <x>684</x>
-     <y>795</y>
+     <y>749</y>
     </hint>
    </hints>
   </connection>
