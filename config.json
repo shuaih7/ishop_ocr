@@ -1,41 +1,43 @@
 {
-	"Global": {
-		"mode": "test",
-		"use_gpu": false
-	},
-	
-	"Camera": {},
-
-	"Light": {},
-
-	"Model_OCR":{
-		"build_params":{
-			"lang": "en",
-			"use_angle_cls": true,
-			"cls_model_dir": null,
-			"det_model_dir": null,
-			"rec_model_dir": null
-		},
-		"infer_params":{
-			"cls": false,
-			"det": true,
-			"rec": true
-		}
-	},
-
-	"Model_DOC":{
-		"build_params":{
-			"lang": "en",
-			"use_angle_cls": true,
-			"cls_model_dir": null,
-			"det_model_dir": null,
-			"rec_model_dir": null
-		},
-		"infer_params":{
-			"cls": false,
-			"det": true,
-			"rec": true
-		}
-
-	}
+    "Global": {
+        "mode": "inspect",
+        "use_gpu": false
+    },
+    "Camera": {
+        "DeviceSerialNumber": "NR0190090349",
+        "ExposureTime": 2000,
+        "Gain": 15,
+        "Binning": 4
+    },
+    "Light": {},
+    "Model_OCR": {
+        "build_params": {
+            "lang": "en",
+            "use_angle_cls": true,
+            "cls_model_dir": null,
+            "det_model_dir": null,
+            "rec_model_dir": null,
+            "use_gpu": false
+        },
+        "infer_params": {
+            "cls": false,
+            "det": true,
+            "rec": true
+        }
+    },
+    "Model_DOC": {
+        "build_params": {
+            "lang": "en",
+            "use_angle_cls": true,
+            "cls_model_dir": null,
+            "det_model_dir": null,
+            "rec_model_dir": null,
+            "use_gpu": false
+        },
+        "infer_params": {
+            "cls": false,
+            "det": true,
+            "rec": true
+        }
+    }
 }

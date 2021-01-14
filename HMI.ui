@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1118</width>
-    <height>782</height>
+    <height>756</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,10 +49,13 @@
       </property>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout" stretch="10,1">
+        <property name="spacing">
+         <number>15</number>
+        </property>
         <item>
          <widget class="ImageLabel" name="imageLabel">
           <property name="styleSheet">
-           <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+           <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(222,222,222)</string>
           </property>
           <property name="text">
            <string/>
@@ -60,7 +63,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,3,3,3,1">
           <property name="spacing">
            <number>15</number>
           </property>
@@ -76,7 +79,7 @@
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+             <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
             </property>
             <property name="text">
              <string>扫描交接单</string>
@@ -92,7 +95,7 @@
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+             <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
             </property>
             <property name="text">
              <string>识别零件</string>
@@ -108,7 +111,7 @@
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+             <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
             </property>
             <property name="text">
              <string>报告</string>
@@ -124,10 +127,36 @@
              </sizepolicy>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+             <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
             </property>
             <property name="text">
              <string>清空</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="betConfig">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>data/icons/setting.png</normaloff>data/icons/setting.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -138,10 +167,10 @@
       <item>
        <widget class="PartTable" name="partTable">
         <property name="styleSheet">
-         <string notr="true">font-size: 20px;height: 33px;border:2px groove gray; border-radius:15px;padding:2px 4px;</string>
+         <string notr="true">font-size: 20px;height: 33px;border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(222,222,222)</string>
         </property>
         <property name="showGrid">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <attribute name="horizontalHeaderCascadingSectionResizes">
          <bool>true</bool>
@@ -272,12 +301,12 @@
    <slot>recDocument()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>85</x>
-     <y>721</y>
+     <x>118</x>
+     <y>712</y>
     </hint>
     <hint type="destinationlabel">
      <x>77</x>
-     <y>807</y>
+     <y>755</y>
     </hint>
    </hints>
   </connection>
@@ -293,7 +322,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>252</x>
-     <y>859</y>
+     <y>755</y>
     </hint>
    </hints>
   </connection>
@@ -309,7 +338,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>420</x>
-     <y>866</y>
+     <y>755</y>
     </hint>
    </hints>
   </connection>
@@ -320,12 +349,12 @@
    <slot>clearAll()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>569</x>
-     <y>717</y>
+     <x>592</x>
+     <y>712</y>
     </hint>
     <hint type="destinationlabel">
      <x>544</x>
-     <y>875</y>
+     <y>755</y>
     </hint>
    </hints>
   </connection>
@@ -345,6 +374,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>betConfig</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>systemConfig()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>670</x>
+     <y>693</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>684</x>
+     <y>795</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>recDocument()</slot>
@@ -352,5 +397,6 @@
   <slot>createReport()</slot>
   <slot>clearAll()</slot>
   <slot>updateStatus()</slot>
+  <slot>systemConfig()</slot>
  </slots>
 </ui>

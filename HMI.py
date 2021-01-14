@@ -26,9 +26,9 @@ from PyQt5.QtGui import QImage, QPixmap, QFont
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem
 
-#from third_party import gxipy as gx
+import gxipy as gx
 from log import getLogger
-#from Workers import videoWorker
+from ConfigWidget import ConfigWidget
 
 
 class MainWindow(QMainWindow):
@@ -43,8 +43,8 @@ class MainWindow(QMainWindow):
             self.config_matrix = json.load(f)
             
         self.mode = self.config_matrix["Global"]["mode"]
-        self.imageLabel.setConfig(self.config_matrix)
-        self.partTable.setConfig(self.config_matrix)
+        self.imageLabel.setConfig(self.config_matrix, self.messager)
+        self.partTable.setConfig(self.config_matrix, self.messager)
         
         # Config the devices
         self.camera = None
@@ -57,22 +57,100 @@ class MainWindow(QMainWindow):
             "error":    self.logger.error,
             "critical": self.logger.critical}
             
+        # Initialize the configuration widget
+        self.configWidget = ConfigWidget(self.config_matrix, self.messager)
+        self.configWidget.cameraCfgSignal.connect(self.cameraConfig)
+        self.configWidget.lightCfgSignal.connect(self.lightConfig)
+        self.configWidget.modelCfgSignal.connect(self.modelConfig)
+            
         # Initialization
         self.image = None
+        self.isLive = False
         self.part_list = []
         self.scan_dict = {}
         self.initModels()
             
     def liveStream(self):
+        if self.isLive: return
+        
         if self.mode.lower() == "test":
-            while True:
+            self.isLive = True
+            while self.isLive:
                 image_file = os.path.join(abs_path, r"data/imgs/sample.jpg")
                 self.image = cv2.imread(image_file, cv2.IMREAD_COLOR)
                 self.imageLabel.refresh(self.image)
                 QApplication.processEvents()
         else:
-            # TODO: add camera functions here ...
-            QApplication.processEvents()
+            # self.startBtn.setText("连接相机")
+            camera_config = self.config_matrix["Camera"]
+        
+            # Fetch the config parameters
+            SN = camera_config['DeviceSerialNumber']
+            ExposureTime = camera_config['ExposureTime']
+            Gain = camera_config['Gain']
+            Binning = camera_config['Binning']
+
+            # create a device manager
+            device_manager = gx.DeviceManager()
+            dev_num, dev_info_list = device_manager.update_device_list()
+            
+            if dev_num == 0: 
+                self.messager("Camera with the serial number {} does not in the list.".format(SN), flag="warning")
+                return
+            else:
+                self.messager("Found camera {}, connecting...".format(SN), flag="info")
+                
+            # open the camera device by serial number
+            try:
+                cam = device_manager.open_device_by_sn(SN)
+                self.camera = cam
+                
+                # set exposure & gain
+                cam.ExposureTime.set(ExposureTime)
+                cam.Gain.set(Gain)
+                try: # Because some DH cameras do not support "binning"
+                    cam.BinningHorizontal.set(Binning)
+                    cam.BinningVertical.set(Binning)
+                except Exception as expt: 
+                    self.messager(expt, flag="warning")
+
+                # set trigger mode and trigger source
+                # cam.TriggerMode.set(gx.GxSwitchEntry.OFF)
+                cam.TriggerMode.set(gx.GxSwitchEntry.ON)
+                cam.TriggerSource.set(gx.GxTriggerSourceEntry.SOFTWARE)
+                
+                # Set the status to the capturing mode
+                cam.stream_on()
+                self.messager("Successfully connected camera {}.".format(SN), flag="info")
+                
+            except Exception as expt:
+                self.messager("Cannot connect the camera, please check the configurations and retry.", flag="error")
+                return
+            
+            self.isLive = True
+            while self.isLive: 
+                try:
+                    self.camera.TriggerSoftware.send_command()
+                    image_raw = self.camera.data_stream[0].get_image()
+                    if image_raw is None: continue
+                    image = image_raw.get_numpy_array()
+                    if image is None: continue
+                    else: # Convert gray scale to BGR
+                        c = image.shape[-1]
+                        if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+                        self.image = image
+                        self.imageLabel.refresh(self.image)
+
+                except: 
+                    self.isLive = False
+                    self.messager("Camera connection is interrupted, please reconnect.", flag="error")
+                    return
+                    
+                QApplication.processEvents()
+            
+            # Make sure to stop the steam and close the device before exit
+            cam.stream_off()
+            cam.close_device()
             
     def initModels(self):
         params_doc = self.config_matrix["Model_DOC"]
@@ -112,7 +190,7 @@ class MainWindow(QMainWindow):
             number = result[1][0]
             if self.isValidNumber(number): 
                 number = self.formatNumber(number)
-                self.scan_dict[number] = {"position": "-", "status": "Unchecked", "id": index}
+                self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
                 index += 1
         
         self.updateTable()
@@ -127,6 +205,25 @@ class MainWindow(QMainWindow):
         self.partTable.clearRows()
         self.scan_dict = {}
         self.part_list = []
+        
+    @pyqtSlot()
+    def systemConfig(self):
+        self.configWidget.show()
+        
+    @pyqtSlot()
+    def cameraConfig(self):
+        if self.mode == "test": return
+        self.isLive = False
+        self.messager(msg="Refreshing the camera configurations, restarting...", flag="info")
+        self.liveStream()
+        
+    @pyqtSlot()
+    def lightConfig(self):
+        pass
+        
+    @pyqtSlot()
+    def modelConfig(self):
+        pass
     
     @pyqtSlot(QTableWidgetItem)    
     def updateStatus(self, item):
@@ -151,7 +248,7 @@ class MainWindow(QMainWindow):
         if number[-3] == "2": number = number[:-4]+"Z"+number[-2:]
         return number
      
-    def message(self, msg, flag="info"): 
+    def messager(self, msg, flag="info"): 
         self.logger_flags[flag](msg)
         
     def closeEvent(self, ev):   
@@ -163,9 +260,7 @@ class MainWindow(QMainWindow):
             QMessageBox.No)
 
         if reply == QMessageBox.Yes: 
-            #if self.isInferring: self.isInferring = False
-            #if self.isRunning: self.isRunning = False
-            self.message("i-shopOCR user interface has been closed。\n", flag="info")
+            self.messager("i-shopOCR user interface has been closed.\n", flag="info")
             sys.exit()
             #ev.accept()
         else: ev.ignore()

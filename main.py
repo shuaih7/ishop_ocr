@@ -17,8 +17,8 @@ from HMI import MainWindow
 
 def main():
     Window = MainWindow()
-    Window.show()
-    #Window.showMaximized()
+    #Window.show()
+    Window.showMaximized()
     Window.liveStream()
     sys.exit(app.exec_())
 

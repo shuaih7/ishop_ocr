@@ -21,8 +21,9 @@ class ImageLabel(QLabel):
         self.config_matrix = None
         self.pixmap = None
         
-    def setConfig(self, config_matrix):
+    def setConfig(self, config_matrix, messager):
         self.config_matrix = config_matrix
+        self.messager = messager
         
     def refresh(self, image):
         h, w, ch = image.shape

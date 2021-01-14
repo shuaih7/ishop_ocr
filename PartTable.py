@@ -20,18 +20,20 @@ class PartTable(QTableWidget):
         super(PartTable, self).__init__(parent)
         self.config_matrix = None
         
-    def setConfig(self, config_matrix):
+    def setConfig(self, config_matrix, messager):
         self.config_matrix = config_matrix
+        self.messager = messager
         
         self.match_color = QColor(6, 168, 255)
         self.check_color = QColor(6, 255, 168)
         self.scrap_color = QColor(255, 60, 6)
-        self.background_color = QColor(207, 207, 207)
+        self.background_color = QColor(222, 222, 222)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         
     def updateRows(self, info_dict):
         self.clearRows()
+        self.info_dict = info_dict
         
         for row, number in enumerate(info_dict):
             self.insertRow(row)
@@ -57,17 +59,22 @@ class PartTable(QTableWidget):
         if item.column() != 2: return
         
         row = item.row()
+        number = self.item(row,0).text()
         if self.item(row, 1).text() == "-": return
         
-        if item.text() == "Unchecked": 
-            item.setText("Good")
+        if item.text() == "未确认": 
+            status = "完好"
+            item.setText(status)
             item.setBackground(QBrush(self.check_color))
-        elif item.text() == "Good":
-            item.setText("Scrap")
+        elif item.text() == "完好":
+            status = "报废"
+            item.setText(status)
             item.setBackground(QBrush(self.scrap_color))
-        elif item.text() == "Scrap":
-            item.setText("Unchecked")
+        elif item.text() == "报废":
+            status = "未确认"
+            item.setText(status)
             item.setBackground(QBrush(self.background_color))
+        self.info_dict[number] = status
             
     def clearRows(self):
         self.clearContents()
