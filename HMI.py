@@ -104,7 +104,7 @@ class MainWindow(QMainWindow):
             try:
                 cam = device_manager.open_device_by_sn(SN)
                 self.camera = cam
-                
+
                 # set exposure & gain
                 cam.ExposureTime.set(ExposureTime)
                 cam.Gain.set(Gain)
@@ -113,7 +113,8 @@ class MainWindow(QMainWindow):
                     cam.BinningVertical.set(Binning)
                 except Exception as expt: 
                     self.messager(expt, flag="warning")
-
+                
+                
                 # set trigger mode and trigger source
                 # cam.TriggerMode.set(gx.GxSwitchEntry.OFF)
                 cam.TriggerMode.set(gx.GxSwitchEntry.ON)
@@ -124,7 +125,10 @@ class MainWindow(QMainWindow):
                 self.messager("Successfully connected camera {}.".format(SN), flag="info")
                 
             except Exception as expt:
-                self.messager("Cannot connect the camera, please check the configurations and retry.", flag="error")
+                self.camera.stream_off()
+                self.camera.close_device()
+                self.messager(expt, flag="warning")
+                self.liveStream()
                 return
             
             self.isLive = True
