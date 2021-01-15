@@ -18,7 +18,6 @@ import numpy as np
 abs_path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(abs_path)
 
-from paddleocr import PaddleOCR
 from PyQt5.uic import loadUi
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtGui import QImage, QPixmap, QFont
@@ -26,6 +25,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem
 
 import gxipy as gx
+from paddleocr.paddleocr import PaddleOCR
 from log import getLogger
 from utils import write_excel
 from ConfigWidget import ConfigWidget
