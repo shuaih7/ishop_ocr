@@ -14,6 +14,7 @@ import sys
 import numpy as np
 
 from .excel import write_excel
+from .enhancement import SNPatch
 
 
 abs_path = os.path.abspath(os.path.dirname(__file__))

@@ -1,10 +1,12 @@
 {
     "Global": {
-        "mode": "test",
-        "use_gpu": false
+        "mode": "file",
+        "use_gpu": true,
+        "gpu_mem": 2000,
+        "file_folder": ""
     },
     "Camera": {
-        "DeviceSerialNumber": "NR019009034",
+        "DeviceSerialNumber": "NR0190090349",
         "ExposureTime": 2000,
         "Gain": 20,
         "Binning": 4
@@ -14,10 +16,12 @@
         "build_params": {
             "lang": "en",
             "use_angle_cls": true,
-            "cls_model_dir": null,
-            "det_model_dir": null,
-            "rec_model_dir": null,
-            "use_gpu": false
+            "model_dir": "C:/Users/shuai/.paddleocr",
+            "use_gpu": true,
+            "gpu_mem": 2000,
+            "cls_model_dir": "C:/Users/shuai/.paddleocr\\cls",
+            "det_model_dir": "C:/Users/shuai/.paddleocr\\det",
+            "rec_model_dir": "C:/Users/shuai/.paddleocr\\rec\\en"
         },
         "infer_params": {
             "cls": false,
@@ -29,10 +33,12 @@
         "build_params": {
             "lang": "en",
             "use_angle_cls": true,
-            "cls_model_dir": null,
-            "det_model_dir": null,
-            "rec_model_dir": null,
-            "use_gpu": false
+            "model_dir": "C:/Users/shuai/.paddleocr",
+            "use_gpu": true,
+            "gpu_mem": 2000,
+            "cls_model_dir": "C:/Users/shuai/.paddleocr\\cls",
+            "det_model_dir": "C:/Users/shuai/.paddleocr\\det",
+            "rec_model_dir": "C:/Users/shuai/.paddleocr\\rec\\en"
         },
         "infer_params": {
             "cls": false,

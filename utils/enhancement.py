@@ -104,23 +104,24 @@ class SNPatch():
 if __name__ =="__main__":
     import time
     import cv2
-    from paddleocr import PaddleOCR
+    sys.path.append(r"C:\Users\shuai\Documents\GitHub\ishop_ocr")
+    from paddleocr.paddleocr import PaddleOCR
     
     patch = SNPatch()
     image_patches = []
     results = []
-    ocr = PaddleOCR(use_angle_cls=True, use_gpu=False, lang="en") # need to run only once to download and load model into memory
+    ocr = PaddleOCR(use_angle_cls=True, use_gpu=True, gpu_mem=2000, lang="en") # need to run only once to download and load model into memory
 
     image_path = r"C:\Users\shuai\Documents\GitHub\ishop_ocr\data\imgs\2021-01-13_17_46_28_760.bmp"
     img = array(Image.open(image_path))
     
     t0 = time.time()
     image_patches = patch(img) #histeq(img)
-    result = ocr.ocr(image_patches, rec=True, det=True, cls=False)
-    #for img in image_patches:
-    #    img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
-    #    result = ocr.ocr(img, rec=True, det=True, cls=False)
-    #    results.append(result)
+    # result = ocr.ocr(image_patches, rec=True, det=True, cls=False)
+    for img in image_patches:
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+        result = ocr.ocr(img, rec=True, det=True, cls=False)
+        results.append(result)
     t1 = time.time()
     print("time elapsed:", t1-t0, "seconds.")
     """

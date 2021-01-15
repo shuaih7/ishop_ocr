@@ -59,28 +59,22 @@ class MainWindow(QMainWindow):
             
         # Initialize the configuration widget
         self.configWidget = ConfigWidget(self.config_matrix, self.messager)
+        self.configWidget.generalCfgSignal.connect(self.generalConfig)
         self.configWidget.cameraCfgSignal.connect(self.cameraConfig)
         self.configWidget.lightCfgSignal.connect(self.lightConfig)
         self.configWidget.modelCfgSignal.connect(self.modelConfig)
             
         # Initialization
         self.image = None
+        self.camera = None
         self.isLive = False
         self.part_list = []
         self.scan_dict = {}
         self.initModels()
             
     def liveStream(self):
-        if self.isLive: return
-        
-        if self.mode.lower() == "test":
-            self.isLive = True
-            while self.isLive:
-                image_file = os.path.join(abs_path, r"data/imgs/sample.jpg")
-                self.image = cv2.imread(image_file, cv2.IMREAD_COLOR)
-                self.imageLabel.refresh(self.image)
-                QApplication.processEvents()
-        else:
+        if self.isLive or self.mode == "file": return
+        elif self.mode == "live":
             # self.startBtn.setText("连接相机")
             camera_config = self.config_matrix["Camera"]
         
@@ -159,14 +153,20 @@ class MainWindow(QMainWindow):
             cam.stream_off()
             cam.close_device()
             
+    def closeLiveStream(self):
+        if self.camera is not None:
+            self.camera.close_device()
+            
     def initModels(self):
         params_doc = self.config_matrix["Model_DOC"]
         params_doc["build_params"]["use_gpu"] = self.config_matrix["Global"]["use_gpu"]
+        params_doc["build_params"]["gpu_mem"] = self.config_matrix["Global"]["gpu_mem"]
         params_ocr = self.config_matrix["Model_OCR"]
         params_ocr["build_params"]["use_gpu"] = self.config_matrix["Global"]["use_gpu"]
+        params_ocr["build_params"]["gpu_mem"] = self.config_matrix["Global"]["gpu_mem"]
         
-        self.model_doc = PaddleOCR(**params_doc["build_params"])
-        self.model_ocr = PaddleOCR(**params_ocr["build_params"])
+        self.model_doc = PaddleOCR(**self.extendModelParams(params_doc["build_params"]))
+        self.model_ocr = PaddleOCR(**self.extendModelParams(params_ocr["build_params"]))
     
     @pyqtSlot()    
     def recParts(self):
@@ -219,11 +219,19 @@ class MainWindow(QMainWindow):
         
     @pyqtSlot()
     def systemConfig(self):
-        self.configWidget.show()
+        self.configWidget.showConfig()
         
     @pyqtSlot()
+    def generalConfig(self):
+        self.mode = self.config_matrix["Global"]["mode"]
+        if self.mode == "file":
+            self.closeLiveStream()
+        elif self.mode == "live" and not self.isLive:
+            self.liveStream()
+            
+    @pyqtSlot()
     def cameraConfig(self):
-        if self.mode == "test": return
+        if self.mode == "file": return
         self.isLive = False
         self.messager(msg="Refreshing the camera configurations, restarting...", flag="info")
         self.liveStream()
@@ -234,7 +242,7 @@ class MainWindow(QMainWindow):
         
     @pyqtSlot()
     def modelConfig(self):
-        pass
+        self.initModels()
     
     @pyqtSlot(QTableWidgetItem)    
     def updateStatus(self, item):
@@ -258,6 +266,20 @@ class MainWindow(QMainWindow):
         number = number.replace("I", "1")
         if number[-3] == "2": number = number[:-4]+"Z"+number[-2:]
         return number
+        
+    def extendModelParams(self, params):
+        model_dir = params['model_dir']
+        
+        if model_dir is None: 
+            params['cls_model_dir'] = None
+            params['det_model_dir'] = None
+            params['rec_model_dir'] = None
+        else:
+            params['cls_model_dir'] = os.path.join(model_dir, "cls")
+            params['det_model_dir'] = os.path.join(model_dir, "det")
+            params['rec_model_dir'] = os.path.join(model_dir, os.path.join("rec", params["lang"]))
+        
+        return params
      
     def messager(self, msg, flag="info"): 
         self.logger_flags[flag](msg)

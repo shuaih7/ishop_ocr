@@ -67,5 +67,4 @@ def write_excel():
 
 
 if __name__ == '__main__':
-    timestr = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) 
-    print(timestr)
+    eval("print")("Yeah!")
