@@ -203,3 +203,30 @@
 2021-01-15 19:01:32,862 - HMI.py[line:294] - INFO: Successfully connected camera NR0190090349.
 2021-01-15 19:01:53,591 - HMI.py[line:294] - INFO: i-shopOCR user interface has been closed.
 
+2021-01-15 19:15:41,306 - HMI.py[line:285] - INFO: Found camera NR0190090349, connecting...
+2021-01-15 19:15:41,426 - HMI.py[line:285] - INFO: Successfully connected camera NR0190090349.
+2021-01-15 19:15:57,986 - HMI.py[line:285] - INFO: Refreshing the camera configurations, restarting...
+2021-01-15 19:15:58,209 - HMI.py[line:285] - INFO: Found camera NR0190090349, connecting...
+2021-01-15 19:15:58,432 - HMI.py[line:285] - WARNING: DeviceManager.open_device_by_sn:{-8}{The device has already been opened}
+2021-01-15 19:15:58,674 - HMI.py[line:285] - INFO: Found camera NR0190090349, connecting...
+2021-01-15 19:15:58,789 - HMI.py[line:285] - INFO: Successfully connected camera NR0190090349.
+2021-01-15 19:19:44,474 - HMI.py[line:285] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-15 19:20:35,875 - HMI.py[line:285] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-15 19:21:03,361 - HMI.py[line:285] - INFO: Found camera NR0190090349, connecting...
+2021-01-15 19:21:03,484 - HMI.py[line:285] - INFO: Successfully connected camera NR0190090349.
+2021-01-15 19:24:23,876 - HMI.py[line:285] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-15 19:24:32,028 - HMI.py[line:285] - INFO: Found camera NR0190090349, connecting...
+2021-01-15 19:24:32,146 - HMI.py[line:285] - INFO: Successfully connected camera NR0190090349.
+2021-01-15 19:26:47,327 - HMI.py[line:285] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-15 19:26:56,024 - HMI.py[line:285] - INFO: Found camera NR0190090349, connecting...
+2021-01-15 19:26:56,142 - HMI.py[line:285] - INFO: Successfully connected camera NR0190090349.
+2021-01-15 19:27:21,527 - HMI.py[line:285] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-15 19:27:39,405 - HMI.py[line:285] - INFO: Found camera NR0190090349, connecting...
+2021-01-15 19:27:39,523 - HMI.py[line:285] - INFO: Successfully connected camera NR0190090349.
+2021-01-15 19:27:57,659 - HMI.py[line:285] - INFO: i-shopOCR user interface has been closed.
+

@@ -1,6 +1,6 @@
 {
     "Global": {
-        "mode": "file",
+        "mode": "live",
         "use_gpu": true,
         "gpu_mem": 2000,
         "file_folder": ""

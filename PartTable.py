@@ -86,4 +86,5 @@ class PartTable(QTableWidget):
         return check_list
             
     def clearRows(self):
-        self.clearContents()
+        for i in range(self.rowCount(),-1,-1):
+            self.removeRow(i)

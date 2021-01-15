@@ -53,7 +53,7 @@
       <item>
        <widget class="PartTable" name="partTable">
         <property name="styleSheet">
-         <string notr="true">font-size: 20px;height: 33px;border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(222,222,222)</string>
+         <string notr="true">font-size: 20px;height: 33px;border:2px groove gray;padding:2px 4px;background-color:rgb(222,222,222)</string>
         </property>
         <property name="showGrid">
          <bool>false</bool>
@@ -462,8 +462,8 @@
    <slot>recDocument()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>113</x>
-     <y>348</y>
+     <x>1063</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>77</x>
@@ -478,8 +478,8 @@
    <slot>recParts()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>424</y>
+     <x>1062</x>
+     <y>363</y>
     </hint>
     <hint type="destinationlabel">
      <x>252</x>
@@ -494,8 +494,8 @@
    <slot>createReport()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>500</y>
+     <x>1073</x>
+     <y>432</y>
     </hint>
     <hint type="destinationlabel">
      <x>420</x>
@@ -510,8 +510,8 @@
    <slot>clearAll()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>573</y>
+     <x>1061</x>
+     <y>500</y>
     </hint>
     <hint type="destinationlabel">
      <x>544</x>
@@ -526,8 +526,8 @@
    <slot>updateStatus()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>991</x>
-     <y>645</y>
+     <x>48</x>
+     <y>659</y>
     </hint>
     <hint type="destinationlabel">
      <x>558</x>
@@ -542,8 +542,8 @@
    <slot>systemConfig()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>196</x>
-     <y>651</y>
+     <x>1146</x>
+     <y>570</y>
     </hint>
     <hint type="destinationlabel">
      <x>684</x>

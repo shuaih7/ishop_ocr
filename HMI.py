@@ -180,16 +180,16 @@ class MainWindow(QMainWindow):
             results = self.model_doc.ocr(image, **params)
             
             for result in results:
-                self.part_list.append(["1620M0298Z01", [0,0]])
-                #self.part_list.append(result[1]) # TODO: result[1] -> [result[1][0], position]
+                #self.part_list.append(["1620M0298Z01", [0,0]])
+                self.part_list.append([result[1][0], "0"]) # TODO: result[1] -> [result[1][0], position]
             
             self.matchTable()
 
     @pyqtSlot()        
     def recDocument(self):
         self.scan_dict = {}
-        #image = self.image
-        image = cv2.imread(r"E:\Projects\Part_Number\dataset\20210113\test\doc.bmp", cv2.IMREAD_COLOR)
+        image = self.image
+        #image = cv2.imread(r"E:\Projects\Part_Number\dataset\20210113\test\doc.bmp", cv2.IMREAD_COLOR)
         params = self.config_matrix["Model_DOC"]["infer_params"]
         results = self.model_doc.ocr(image, **params)
         
