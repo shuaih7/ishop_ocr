@@ -230,7 +230,7 @@
                <number>30</number>
               </property>
               <item>
-               <widget class="QPushButton" name="btnScan">
+               <widget class="PushButton" name="scanBtn">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -244,7 +244,7 @@
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                 <string notr="true">font-size: 22px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
                 </property>
                 <property name="text">
                  <string>扫描交接单</string>
@@ -265,7 +265,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btnOcr">
+               <widget class="PushButton" name="ocrBtn">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -279,7 +279,7 @@
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                 <string notr="true">font-size: 22px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
                 </property>
                 <property name="text">
                  <string>识别零件</string>
@@ -300,7 +300,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btnReport">
+               <widget class="PushButton" name="reportBtn">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -317,7 +317,7 @@
                  <string>生成检测报告</string>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                 <string notr="true">font-size: 22px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
                 </property>
                 <property name="text">
                  <string>报告</string>
@@ -338,7 +338,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btnClear">
+               <widget class="PushButton" name="clearBtn">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -355,7 +355,7 @@
                  <string>清除已识别内容</string>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">font: bold;font-size: 23px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                 <string notr="true">font-size: 22px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
                 </property>
                 <property name="text">
                  <string>清除</string>
@@ -376,7 +376,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="betConfig">
+               <widget class="PushButton" name="configBtn">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -390,7 +390,7 @@
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">font: bold;font-size: 20px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+                 <string notr="true">font-size: 22px;height: 36px;width: 100px; border:2px groove gray; border-radius:15px;padding:2px 4px;background-color:rgb(180,180,180)</string>
                 </property>
                 <property name="text">
                  <string>设置</string>
@@ -452,73 +452,14 @@
    <extends>QTableWidget</extends>
    <header location="global">PartTable.h</header>
   </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">PushButton.h</header>
+  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>btnScan</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>recDocument()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1063</x>
-     <y>294</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>77</x>
-     <y>749</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnOcr</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>recParts()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1062</x>
-     <y>363</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>252</x>
-     <y>749</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnReport</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>createReport()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1073</x>
-     <y>432</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>420</x>
-     <y>749</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnClear</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>clearAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1061</x>
-     <y>500</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>544</x>
-     <y>749</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>partTable</sender>
    <signal>itemClicked(QTableWidgetItem*)</signal>
@@ -532,22 +473,6 @@
     <hint type="destinationlabel">
      <x>558</x>
      <y>390</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>betConfig</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>systemConfig()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1146</x>
-     <y>570</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>684</x>
-     <y>749</y>
     </hint>
    </hints>
   </connection>

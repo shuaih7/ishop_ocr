@@ -230,3 +230,87 @@
 2021-01-15 19:27:39,523 - HMI.py[line:285] - INFO: Successfully connected camera NR0190090349.
 2021-01-15 19:27:57,659 - HMI.py[line:285] - INFO: i-shopOCR user interface has been closed.
 
+2021-01-17 17:44:49,722 - HMI.py[line:287] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 17:48:57,688 - HMI.py[line:287] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 17:49:07,686 - HMI.py[line:287] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 17:51:17,356 - HMI.py[line:287] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 17:51:32,559 - HMI.py[line:287] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 17:53:18,824 - HMI.py[line:287] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 17:53:50,345 - HMI.py[line:287] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 17:54:23,224 - HMI.py[line:287] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 17:54:37,628 - HMI.py[line:287] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 17:56:40,457 - HMI.py[line:287] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 17:56:54,839 - HMI.py[line:287] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 17:58:09,254 - HMI.py[line:287] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 17:58:21,370 - HMI.py[line:287] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 22:38:35,077 - HMI.py[line:294] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 22:39:16,368 - HMI.py[line:294] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 22:39:25,990 - HMI.py[line:294] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 22:42:13,101 - HMI.py[line:295] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-17 22:43:08,976 - HMI.py[line:295] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 22:52:12,235 - HMI.py[line:295] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 22:56:55,426 - HMI.py[line:295] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 22:58:15,989 - HMI.py[line:295] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 22:59:04,222 - HMI.py[line:295] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:02:39,365 - HMI.py[line:295] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:19:49,681 - HMI.py[line:295] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:26:07,178 - HMI.py[line:297] - INFO: Creating reports ...
+2021-01-17 23:26:11,224 - HMI.py[line:297] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:27:16,332 - HMI.py[line:297] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:35:44,750 - HMI.py[line:299] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:47:23,511 - HMI.py[line:299] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:48:41,294 - HMI.py[line:299] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:50:10,056 - HMI.py[line:299] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:50:51,841 - HMI.py[line:299] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:51:27,881 - HMI.py[line:298] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:52:35,850 - HMI.py[line:298] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:54:50,306 - HMI.py[line:298] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:55:04,093 - HMI.py[line:298] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-17 23:58:53,689 - HMI.py[line:302] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-18 00:07:56,720 - HMI.py[line:302] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-18 00:08:19,177 - HMI.py[line:302] - INFO: Creating reports ...
+2021-01-18 00:09:51,328 - HMI.py[line:302] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-18 00:10:04,462 - HMI.py[line:302] - INFO: Creating reports ...
+2021-01-18 00:10:07,653 - HMI.py[line:302] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-18 00:16:16,608 - HMI.py[line:302] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-18 00:32:43,687 - HMI.py[line:304] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-18 00:33:04,564 - HMI.py[line:304] - INFO: Creating reports ...
+2021-01-18 00:34:32,989 - HMI.py[line:304] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-18 00:45:42,557 - HMI.py[line:304] - INFO: Creating reports ...
+2021-01-18 00:46:00,598 - HMI.py[line:304] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-18 00:47:33,375 - HMI.py[line:304] - INFO: Creating reports ...
+2021-01-18 00:47:35,822 - HMI.py[line:304] - INFO: Creating reports ...
+2021-01-18 00:47:43,165 - HMI.py[line:304] - INFO: i-shopOCR user interface has been closed.
+

@@ -3,7 +3,7 @@
 
 '''
 Created on 01.13.2021
-Updated on 01.14.2021
+Updated on 01.17.2021
 
 Author: haoshaui@handaotech.com
 '''
@@ -13,6 +13,7 @@ import sys
 import cv2
 import json
 import time
+import glob as gb
 import numpy as np
 
 abs_path = os.path.abspath(os.path.dirname(__file__))
@@ -27,8 +28,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidget
 import gxipy as gx
 from paddleocr.paddleocr import PaddleOCR
 from log import getLogger
-from utils import write_excel
+from utils import write_excel, SNPatch
 from ConfigWidget import ConfigWidget
+from PushButton import PushButton
 
 
 class MainWindow(QMainWindow):
@@ -57,7 +59,15 @@ class MainWindow(QMainWindow):
             "error":    self.logger.error,
             "critical": self.logger.critical}
             
-        # Initialize the configuration widget
+        # Initialize the push button and the configuration widget
+        self.scanBtn.scanSignal.connect(self.recDocument)
+        self.ocrBtn.ocrSignal.connect(self.recParts)
+        self.reportBtn.reportSignal.connect(self.createReport)
+        self.clearBtn.clearSignal.connect(self.clearAll)
+        self.configBtn.configSignal.connect(self.systemConfig)
+        #self.generalSaveBtn.generalSaveSignal.connect(self.generalConfig)
+        #self.generalExitBtn.generalExitSignal.connect()
+        
         self.configWidget = ConfigWidget(self.config_matrix, self.messager)
         self.configWidget.generalCfgSignal.connect(self.generalConfig)
         self.configWidget.cameraCfgSignal.connect(self.cameraConfig)
@@ -68,9 +78,18 @@ class MainWindow(QMainWindow):
         self.image = None
         self.camera = None
         self.isLive = False
+        self.patch = SNPatch()
         self.part_list = []
         self.scan_dict = {}
         self.initModels()
+        
+    def initCanvas(self):
+        if self.mode == "live":
+            self.liveStream()
+        if not self.isLive:
+            self.image = cv2.imread(os.path.join(abs_path, os.path.join(r"data\imgs","preface.jpg")))
+            self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+            self.imageLabel.refresh(self.image)
             
     def liveStream(self):
         if self.isLive or self.mode == "file": return

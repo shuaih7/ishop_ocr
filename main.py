@@ -19,7 +19,7 @@ def main():
     Window = MainWindow()
     #Window.show()
     Window.showMaximized()
-    Window.liveStream()
+    Window.initCanvas()
     sys.exit(app.exec_())
 
 

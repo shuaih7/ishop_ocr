@@ -195,9 +195,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="folderBtn">
+         <widget class="PushButton" name="folderBtn">
           <property name="styleSheet">
-           <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;</string>
+           <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
           <property name="text">
            <string/>
@@ -252,7 +252,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="generalSaveBtn">
+         <widget class="PushButton" name="generalSaveBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -266,7 +266,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="generalExitBtn">
+         <widget class="PushButton" name="generalExitBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -574,7 +574,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="cameraSaveBtn">
+         <widget class="PushButton" name="cameraSaveBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -588,7 +588,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="cameraExitBtn">
+         <widget class="PushButton" name="cameraExitBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -762,7 +762,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="lightSaveBtn">
+         <widget class="PushButton" name="lightSaveBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -776,7 +776,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="lightExitBtn">
+         <widget class="PushButton" name="lightExitBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -995,9 +995,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="docModelBtn">
+         <widget class="PushButton" name="docModelBtn">
           <property name="styleSheet">
-           <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;</string>
+           <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
           <property name="text">
            <string/>
@@ -1073,9 +1073,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="ocrModelBtn">
+         <widget class="PushButton" name="ocrModelBtn">
           <property name="styleSheet">
-           <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;</string>
+           <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
           <property name="text">
            <string/>
@@ -1133,7 +1133,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="modelSaveBtn">
+         <widget class="PushButton" name="modelSaveBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -1147,7 +1147,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="modelExitBtn">
+         <widget class="PushButton" name="modelExitBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -1180,6 +1180,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">PushButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

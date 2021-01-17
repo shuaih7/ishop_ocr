@@ -31,6 +31,18 @@ class ConfigWidget(QTabWidget):
         self.config_matrix = config_matrix
         self.messager = messager
         
+        # Connect the push button signals
+        self.generalSaveBtn.generalSaveSignal.connect(self.generalConfig)
+        self.cameraSaveBtn.cameraSaveSignal.connect(self.cameraConfig)
+        self.lightSaveBtn.lightSaveSignal.connect(self.lightConfig)
+        self.modelSaveBtn.modelSaveSignal.connect(self.modelConfig)
+        self.generalExitBtn.exitSignal.connect(self.exitConfig)
+        self.cameraExitBtn.exitSignal.connect(self.exitConfig)
+        self.lightExitBtn.exitSignal.connect(self.exitConfig)
+        self.modelExitBtn.exitSignal.connect(self.exitConfig)
+        self.docModelBtn.docModelSignal.connect(self.setDocModelDir)
+        self.ocrModelBtn.ocrModelSignal.connect(self.setOcrModelDir)
+        
     @pyqtSlot()    
     def generalConfig(self):
         if self.liveModeBtn.isChecked():
