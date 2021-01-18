@@ -4,8 +4,8 @@
         "use_gpu": true,
         "gpu_mem": 2000,
         "disp_intv": 20,
-        "doc_folder": "E:/Projects/Part_Number/dataset/20210113/test/doc",
-        "ocr_folder": "E:/Projects/Part_Number/dataset/20210113/test/ocr"
+        "doc_folder": "E:/Projects/Part_Number/dataset/test",
+        "ocr_folder": "E:/Projects/Part_Number/dataset/20210113/casting_sideA"
     },
     "Camera": {
         "DeviceSerialNumber": "NR0190090349",
@@ -16,14 +16,14 @@
     "Light": {},
     "Model_OCR": {
         "build_params": {
-            "lang": "en",
+            "lang": "ch",
             "use_angle_cls": true,
-            "model_dir": "C:/Users/shuai/.paddleocr",
+            "model_dir": "C:/Users/shuai/.paddleocr/1.1",
             "use_gpu": true,
             "gpu_mem": 2000,
-            "cls_model_dir": "C:/Users/shuai/.paddleocr\\cls",
-            "det_model_dir": "C:/Users/shuai/.paddleocr\\det",
-            "rec_model_dir": "C:/Users/shuai/.paddleocr\\rec\\en"
+            "cls_model_dir": "C:/Users/shuai/.paddleocr/1.1\\cls",
+            "det_model_dir": "C:/Users/shuai/.paddleocr/1.1\\det",
+            "rec_model_dir": "C:/Users/shuai/.paddleocr/1.1\\rec\\ch"
         },
         "infer_params": {
             "cls": false,
@@ -33,14 +33,14 @@
     },
     "Model_DOC": {
         "build_params": {
-            "lang": "en",
+            "lang": "ch",
             "use_angle_cls": true,
-            "model_dir": "C:/Users/shuai/.paddleocr",
+            "model_dir": "C:/Users/shuai/.paddleocr/1.1",
             "use_gpu": true,
             "gpu_mem": 2000,
-            "cls_model_dir": "C:/Users/shuai/.paddleocr\\cls",
-            "det_model_dir": "C:/Users/shuai/.paddleocr\\det",
-            "rec_model_dir": "C:/Users/shuai/.paddleocr\\rec\\en"
+            "cls_model_dir": "C:/Users/shuai/.paddleocr/1.1\\cls",
+            "det_model_dir": "C:/Users/shuai/.paddleocr/1.1\\det",
+            "rec_model_dir": "C:/Users/shuai/.paddleocr/1.1\\rec\\ch"
         },
         "infer_params": {
             "cls": false,

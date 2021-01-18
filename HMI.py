@@ -210,13 +210,13 @@ class MainWindow(QMainWindow):
                         points = np.array(result[0],dtype=np.float32)
                         texts = result[1][0]
                         image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
-                        
+                                 
                     _, filename = os.path.split(img_file)
                     save_path = os.path.join(abs_path, os.path.join("data/result/ocr", filename))
-                    cv2.imwrite(save_path, image)
-                    print(save_path)
+                    #cv2.imwrite(save_path, image)
                     
                     self.imageLabel.refresh(image)
+                    QApplication.processEvents()    
                     self.matchTable()
                     
             elif self.mode == "live":
@@ -230,7 +230,9 @@ class MainWindow(QMainWindow):
                     points = np.array(result[0],dtype=np.float32)
                     texts = result[1][0]
                     image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+                 
                 self.imageLabel.refresh(image, mode="hold")
+                QApplication.processEvents()   
                 self.matchTable()
 
     @pyqtSlot()        
@@ -261,8 +263,7 @@ class MainWindow(QMainWindow):
                 
                 _, filename = os.path.split(img_file)
                 save_path = os.path.join(abs_path, os.path.join("data/result/doc", filename))
-                cv2.imwrite(save_path, image)
-                print(save_path)
+                #cv2.imwrite(save_path, image)
                         
                 self.imageLabel.refresh(image)
                 self.updateTable()
