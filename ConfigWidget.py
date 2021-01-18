@@ -31,25 +31,14 @@ class ConfigWidget(QTabWidget):
         self.config_matrix = config_matrix
         self.messager = messager
         
-        # Connect the push button signals
-        self.generalSaveBtn.generalSaveSignal.connect(self.generalConfig)
-        self.cameraSaveBtn.cameraSaveSignal.connect(self.cameraConfig)
-        self.lightSaveBtn.lightSaveSignal.connect(self.lightConfig)
-        self.modelSaveBtn.modelSaveSignal.connect(self.modelConfig)
-        self.generalExitBtn.exitSignal.connect(self.exitConfig)
-        self.cameraExitBtn.exitSignal.connect(self.exitConfig)
-        self.lightExitBtn.exitSignal.connect(self.exitConfig)
-        self.modelExitBtn.exitSignal.connect(self.exitConfig)
-        self.docModelBtn.docModelSignal.connect(self.setDocModelDir)
-        self.ocrModelBtn.ocrModelSignal.connect(self.setOcrModelDir)
-        
     @pyqtSlot()    
     def generalConfig(self):
         if self.liveModeBtn.isChecked():
             self.config_matrix["Global"]["mode"] = "live"
         else:
             self.config_matrix["Global"]["mode"] = "file"
-        self.config_matrix["Global"]["file_folder"] = self.folderLine.text()
+        self.config_matrix["Global"]["doc_folder"] = self.docFileLine.text()
+        self.config_matrix["Global"]["ocr_folder"] = self.ocrFileLine.text()
         
         self.generalCfgSignal.emit()
         self.saveConfig()
@@ -111,9 +100,14 @@ class ConfigWidget(QTabWidget):
         self.ocrModelLine.setText(model_ocr_dir)
         
     @pyqtSlot()
-    def setFileFolder(self):
+    def setDocFolder(self):
         folder_dir = QFileDialog.getExistingDirectory()
-        self.folderLine.setText(folder_dir)
+        self.docFileLine.setText(folder_dir)
+        
+    @pyqtSlot()
+    def setOcrFolder(self):
+        folder_dir = QFileDialog.getExistingDirectory()
+        self.ocrFileLine.setText(folder_dir)
             
     def checkModelPath(self, path, rec_prefix=None):
         if not os.path.exists(path): return False
@@ -137,6 +131,8 @@ class ConfigWidget(QTabWidget):
             self.liveModeBtn.setChecked(True)
         elif self.config_matrix["Global"]["mode"] == "file":
             self.fileModeBtn.setChecked(True)
+        self.docFileLine.setText(self.config_matrix["Global"]["doc_folder"])
+        self.ocrFileLine.setText(self.config_matrix["Global"]["ocr_folder"])
     
         # Load the current camera configurations
         self.snLine.setText(str(self.config_matrix["Camera"]["DeviceSerialNumber"]))

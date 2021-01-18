@@ -476,6 +476,86 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>configBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>systemConfig()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1150</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1200</x>
+     <y>584</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>clearAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1165</x>
+     <y>474</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1204</x>
+     <y>477</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>reportBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createReport()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1177</x>
+     <y>403</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1202</x>
+     <y>408</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ocrBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>recParts()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1164</x>
+     <y>343</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1213</x>
+     <y>358</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scanBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>recDocument()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1160</x>
+     <y>271</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1205</x>
+     <y>281</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>recDocument()</slot>

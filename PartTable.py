@@ -45,8 +45,14 @@ class PartTable(QTableWidget):
             self.item(row, 0).setTextAlignment(Qt.AlignCenter)
             self.item(row, 1).setTextAlignment(Qt.AlignCenter)
             self.item(row, 2).setTextAlignment(Qt.AlignCenter)
+        
+        if self.rowCount() > 0:
+            self.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        else:
+            self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
             
     def matchRows(self, info_list, info_dict):
+        map_list = []
         for result in info_list:
             number, position = result
             
@@ -55,6 +61,16 @@ class PartTable(QTableWidget):
                 self.item(row, 0).setBackground(QBrush(self.match_color))
                 self.item(row, 1).setBackground(QBrush(self.match_color))
                 self.item(row, 1).setText(str(position))
+                map_list.append(number)
+        
+        for number in info_dict:
+            row = info_dict[number]["id"]
+            if number not in map_list:
+                self.item(row, 0).setBackground(QBrush(self.background_color))
+                self.item(row, 1).setBackground(QBrush(self.background_color))
+                self.item(row, 2).setBackground(QBrush(self.background_color))
+                self.item(row, 1).setText("-")
+                self.item(row, 2).setText("未确认")
             
     def updateStatus(self, item):
         if item.column() != 2: return

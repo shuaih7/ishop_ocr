@@ -20,17 +20,36 @@ class ImageLabel(QLabel):
         super(ImageLabel, self).__init__(parent)
         self.config_matrix = None
         self.pixmap = None
+        self.pixmap_hold = None
+        self.disp_intv = 1
+        self.disp_count = 0
         
     def setConfig(self, config_matrix, messager):
         self.config_matrix = config_matrix
+        self.disp_intv = self.config_matrix["Global"]["disp_intv"]
         self.messager = messager
-        
-    def refresh(self, image):
+
+    def refresh(self, image, mode=None):
         h, w, ch = image.shape
         bytesPerLine = ch*w
         convertToQtFormat = QImage(image.data.tobytes(), w, h, bytesPerLine, QImage.Format_RGB888)
-        self.pixmap = QPixmap.fromImage(convertToQtFormat).scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        self.update()
+            
+        if mode == "hold" and self.disp_count == 0:
+            self.pixmap_hold = QPixmap.fromImage(convertToQtFormat).scaled(self.size(), 
+                                    Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self.pixmap = self.pixmap_hold
+            self.disp_count += 1
+            self.update()
+        elif self.disp_count > 0 and self.disp_count < self.disp_intv:
+            self.pixmap = self.pixmap_hold
+            self.disp_count += 1
+            self.update()
+        elif self.disp_count == self.disp_intv:
+            self.disp_count = 0
+        else:
+            self.pixmap = QPixmap.fromImage(convertToQtFormat).scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self.update()
+            
 
     def paintEvent(self, event):
         painter = QPainter(self)

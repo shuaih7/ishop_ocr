@@ -28,7 +28,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidget
 import gxipy as gx
 from paddleocr.paddleocr import PaddleOCR
 from log import getLogger
-from utils import write_excel, SNPatch
+from utils import draw_polylines, write_excel, SNPatch
 from ConfigWidget import ConfigWidget
 from PushButton import PushButton
 
@@ -59,15 +59,7 @@ class MainWindow(QMainWindow):
             "error":    self.logger.error,
             "critical": self.logger.critical}
             
-        # Initialize the push button and the configuration widget
-        self.scanBtn.scanSignal.connect(self.recDocument)
-        self.ocrBtn.ocrSignal.connect(self.recParts)
-        self.reportBtn.reportSignal.connect(self.createReport)
-        self.clearBtn.clearSignal.connect(self.clearAll)
-        self.configBtn.configSignal.connect(self.systemConfig)
-        #self.generalSaveBtn.generalSaveSignal.connect(self.generalConfig)
-        #self.generalExitBtn.generalExitSignal.connect()
-        
+        # Initialize the configuration widget
         self.configWidget = ConfigWidget(self.config_matrix, self.messager)
         self.configWidget.generalCfgSignal.connect(self.generalConfig)
         self.configWidget.cameraCfgSignal.connect(self.cameraConfig)
@@ -79,6 +71,10 @@ class MainWindow(QMainWindow):
         self.camera = None
         self.isLive = False
         self.patch = SNPatch()
+        self.doc_folder = self.config_matrix["Global"]["doc_folder"]
+        self.ocr_folder = self.config_matrix["Global"]["ocr_folder"]
+        self.supported_images = [".bmp", ".png", ".jpg", ".tif"]
+        
         self.part_list = []
         self.scan_dict = {}
         self.initModels()
@@ -174,7 +170,11 @@ class MainWindow(QMainWindow):
             
     def closeLiveStream(self):
         if self.camera is not None:
-            self.camera.close_device()
+            try: self.camera.close_device()
+            except Exception as expt: pass
+            self.image = cv2.imread(os.path.join(abs_path, os.path.join(r"data\imgs","preface.jpg")))
+            self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+            self.imageLabel.refresh(self.image)
             
     def initModels(self):
         params_doc = self.config_matrix["Model_DOC"]
@@ -192,36 +192,102 @@ class MainWindow(QMainWindow):
         if len(self.scan_dict) == 0:
             QMessageBox.warning(self,"警告", "请先扫描交接单！", QMessageBox.Yes)
         else:
-            if self.image is None: return
             self.part_list = []
-            image = self.image
             params = self.config_matrix["Model_OCR"]["infer_params"]
-            results = self.model_doc.ocr(image, **params)
             
-            for result in results:
-                #self.part_list.append(["1620M0298Z01", [0,0]])
-                self.part_list.append([result[1][0], "0"]) # TODO: result[1] -> [result[1][0], position]
-            
-            self.matchTable()
+            if self.mode == "file":
+                img_list = self.imageLoader(self.ocr_folder)
+                
+                for img_file in img_list:
+                    image = cv2.imread(img_file, cv2.IMREAD_COLOR)
+                    if image is None: 
+                        continue
+                    else:
+                        results = self.model_ocr.ocr(image, **params)
+                        
+                    for result in results:
+                        self.part_list.append([result[1][0], "(0,0)"])
+                        points = np.array(result[0],dtype=np.float32)
+                        texts = result[1][0]
+                        image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+                        
+                    _, filename = os.path.split(img_file)
+                    save_path = os.path.join(abs_path, os.path.join("data/result/ocr", filename))
+                    cv2.imwrite(save_path, image)
+                    print(save_path)
+                    
+                    self.imageLabel.refresh(image)
+                    self.matchTable()
+                    
+            elif self.mode == "live":
+                if self.image is None: return
+                if self.camera is None or not self.isLive: return
+                image = self.image
+                results = self.model_ocr.ocr(image, **params)
+                
+                for result in results:
+                    self.part_list.append([result[1][0], "(0,0)"]) # TODO: result[1] -> [result[1][0], position]
+                    points = np.array(result[0],dtype=np.float32)
+                    texts = result[1][0]
+                    image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+                self.imageLabel.refresh(image, mode="hold")
+                self.matchTable()
 
     @pyqtSlot()        
     def recDocument(self):
         self.scan_dict = {}
-        image = self.image
-        #image = cv2.imread(r"E:\Projects\Part_Number\dataset\20210113\test\doc.bmp", cv2.IMREAD_COLOR)
         params = self.config_matrix["Model_DOC"]["infer_params"]
-        results = self.model_doc.ocr(image, **params)
         
-        index = 0
-        for result in results:
-            number = result[1][0]
-            if self.isValidNumber(number): 
-                number = self.formatNumber(number)
-                self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
-                index += 1
+        if self.mode == "file":
+            img_list = self.imageLoader(self.doc_folder)
+            
+            for img_file in img_list:
+                image = cv2.imread(img_file, cv2.IMREAD_COLOR)
+                if image is None: 
+                    continue
+                else:
+                    results = self.model_doc.ocr(image, **params)
+                
+                index = 0
+                for result in results:
+                    number = result[1][0]
+                    if self.isValidNumber(number): 
+                        points = np.array(result[0],dtype=np.float32)
+                        texts = result[1][0]
+                        image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+                        number = self.formatNumber(number)
+                        self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
+                        index += 1
+                
+                _, filename = os.path.split(img_file)
+                save_path = os.path.join(abs_path, os.path.join("data/result/doc", filename))
+                cv2.imwrite(save_path, image)
+                print(save_path)
+                        
+                self.imageLabel.refresh(image)
+                self.updateTable()
+                self.matchTable()
         
-        self.updateTable()
-        self.matchTable()
+        elif self.mode == "live":
+            if self.image is None: return
+            if self.camera is None or not self.isLive: return
+            
+            image = self.image
+            results = self.model_doc.ocr(image, **params)
+            index = 0
+            for result in results:
+                number = result[1][0]
+                if self.isValidNumber(number): 
+                    points = np.array(result[0],dtype=np.float32)
+                    texts = result[1][0]
+                    image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+                    number = self.formatNumber(number)
+                    self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
+                    index += 1
+                    
+            self.imageLabel.refresh(image, mode="hold")
+            self.updateTable()
+            self.matchTable()
 
     @pyqtSlot()
     def createReport(self):
@@ -247,6 +313,9 @@ class MainWindow(QMainWindow):
             self.closeLiveStream()
         elif self.mode == "live" and not self.isLive:
             self.liveStream()
+            
+        self.doc_folder = self.config_matrix["Global"]["doc_folder"]
+        self.ocr_folder = self.config_matrix["Global"]["ocr_folder"]
             
     @pyqtSlot()
     def cameraConfig(self):
@@ -299,6 +368,12 @@ class MainWindow(QMainWindow):
             params['rec_model_dir'] = os.path.join(model_dir, os.path.join("rec", params["lang"]))
         
         return params
+        
+    def imageLoader(self, folder):
+        img_list = []
+        for suffix in self.supported_images:
+            img_list += gb.glob(folder + r"/*"+suffix)
+        return sorted(img_list, key=os.path.getmtime)
      
     def messager(self, msg, flag="info"): 
         self.logger_flags[flag](msg)

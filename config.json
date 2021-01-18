@@ -3,7 +3,9 @@
         "mode": "file",
         "use_gpu": true,
         "gpu_mem": 2000,
-        "file_folder": ""
+        "disp_intv": 20,
+        "doc_folder": "E:/Projects/Part_Number/dataset/20210113/test/doc",
+        "ocr_folder": "E:/Projects/Part_Number/dataset/20210113/test/ocr"
     },
     "Camera": {
         "DeviceSerialNumber": "NR0190090349",

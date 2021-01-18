@@ -46,7 +46,7 @@
    </attribute>
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_4" stretch="3,3,1,3,8,3">
+     <layout class="QVBoxLayout" name="verticalLayout_4" stretch="3,3,1,3,1,3,3,3">
       <property name="leftMargin">
        <number>10</number>
       </property>
@@ -159,8 +159,8 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>40</height>
+          <width>391</width>
+          <height>13</height>
          </size>
         </property>
        </spacer>
@@ -183,19 +183,19 @@
         <item>
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>检测文件夹</string>
+           <string>交接单路径</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="folderLine">
+         <widget class="QLineEdit" name="docFileLine">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(255,255,255)</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="PushButton" name="folderBtn">
+         <widget class="PushButton" name="docFileBtn">
           <property name="styleSheet">
            <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
           </property>
@@ -210,6 +210,77 @@
         </item>
         <item>
          <spacer name="horizontalSpacer_41">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>391</width>
+          <height>13</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_22" stretch="1,1,6,1,1">
+        <item>
+         <spacer name="horizontalSpacer_42">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>零件号路径</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="ocrFileLine">
+          <property name="styleSheet">
+           <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(255,255,255)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="PushButton" name="ocrFileBtn">
+          <property name="styleSheet">
+           <string notr="true">font-size: 20px;height: 30px;width: 80px; border:2px groove gray;border-radius:10px;padding:2px 4px;background-color:rgb(180,180,180)</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>../FabricUI/FabricUI/icon/folder_icon.png</normaloff>../FabricUI/FabricUI/icon/folder_icon.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_43">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -1350,18 +1421,34 @@
    </hints>
   </connection>
   <connection>
-   <sender>folderBtn</sender>
+   <sender>docFileBtn</sender>
    <signal>clicked()</signal>
    <receiver>TabWidget</receiver>
-   <slot>setFileFolder()</slot>
+   <slot>setDocFolder()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>561</x>
-     <y>217</y>
+     <y>206</y>
     </hint>
     <hint type="destinationlabel">
-     <x>617</x>
-     <y>259</y>
+     <x>618</x>
+     <y>233</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ocrFileBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TabWidget</receiver>
+   <slot>setOcrFolder()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>583</x>
+     <y>309</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>630</x>
+     <y>321</y>
     </hint>
    </hints>
   </connection>
@@ -1378,5 +1465,7 @@
   <slot>setDocModelDir()</slot>
   <slot>setOcrModelDir()</slot>
   <slot>setFileFolder()</slot>
+  <slot>setDocFolder()</slot>
+  <slot>setOcrFolder()</slot>
  </slots>
 </ui>

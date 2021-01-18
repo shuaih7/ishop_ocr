@@ -15,18 +15,6 @@ from PyQt5.QtWidgets import QPushButton
 
 
 class PushButton(QPushButton):
-    scanSignal = pyqtSignal()
-    ocrSignal = pyqtSignal()
-    reportSignal = pyqtSignal()
-    clearSignal = pyqtSignal()
-    configSignal = pyqtSignal()
-    generalSaveSignal = pyqtSignal()
-    cameraSaveSignal = pyqtSignal()
-    lightSaveSignal = pyqtSignal()
-    docModelSignal = pyqtSignal()
-    ocrModelSignal = pyqtSignal()
-    modelSaveSignal = pyqtSignal()
-    exitSignal = pyqtSignal()
     
     def __init__(self, parent=None):
         super(PushButton, self).__init__(parent)
@@ -47,38 +35,14 @@ class PushButton(QPushButton):
             self.setStyleSheet(self.main_style+self.press_color)
         elif self.objectName() in self.cfgBtnList:
             self.setStyleSheet(self.cfg_style+self.press_color)
+        super(PushButton, self).mousePressEvent(event)
 
     def mouseReleaseEvent(self, event):
         if self.objectName() in self.mainBtnList:
             self.setStyleSheet(self.main_style+self.color)
         elif self.objectName() in self.cfgBtnList:
             self.setStyleSheet(self.cfg_style+self.color)
-        
-        if self.objectName() == "scanBtn":
-            self.scanSignal.emit()
-        elif self.objectName() == "ocrBtn":
-            self.ocrSignal.emit()
-        elif self.objectName() == "reportBtn":
-            self.reportSignal.emit()
-        elif self.objectName() == "clearBtn":
-            self.clearSignal.emit()
-        elif self.objectName() == "configBtn":
-            self.configSignal.emit()
-            
-        elif self.objectName() == "generalSaveBtn":
-            self.generalSaveSignal.emit()
-        elif self.objectName() == "cameraSaveBtn":
-            self.cameraSaveSignal.emit()
-        elif self.objectName() == "lightSaveBtn":
-            self.lightSaveSignal.emit()
-        elif self.objectName() == "docModelBtn":
-            self.docModelSignal.emit()
-        elif self.objectName() == "ocrModelBtn":
-            self.ocrModelSignal.emit()
-        elif self.objectName() == "modelSaveBtn":
-            self.modelSaveSignal.emit()
-        elif "Exit" in self.objectName():
-            self.exitSignal.emit()
+        super(PushButton, self).mouseReleaseEvent(event)
         
 
             
