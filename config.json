@@ -4,8 +4,8 @@
         "use_gpu": true,
         "gpu_mem": 2000,
         "disp_intv": 20,
-        "doc_folder": "E:/Projects/Part_Number/dataset/test",
-        "ocr_folder": "E:/Projects/Part_Number/dataset/20210113/casting_sideA"
+        "doc_folder": "E:/Projects/Part_Number/dataset/test/doc",
+        "ocr_folder": "E:/Projects/Part_Number/dataset/test/img"
     },
     "Camera": {
         "DeviceSerialNumber": "NR0190090349",
@@ -15,6 +15,7 @@
     },
     "Light": {},
     "Model_OCR": {
+        "use_patch": true,
         "build_params": {
             "lang": "ch",
             "use_angle_cls": true,

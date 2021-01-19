@@ -25,10 +25,10 @@ class SNPatch():
         pass
 
     #
-    def __call__(self, image):
+    def __call__(self, image, engine=None, params={}, app=None):
         #self.image_filtered,_ = self.denoise(image,image)
         #return self.get_patches(self.image_filtered)
-        return self.get_patches(image)
+        return self.rec_patches(image, engine, params, app)
 
     def histeq(self,im,nbr_bins=256):
         imhist,bins = histogram(im.flatten(),nbr_bins,normed=True)
@@ -91,14 +91,45 @@ class SNPatch():
         row_nbr,col_nbr = self.row_nbr, self.col_nbr
         offset = self.offset
         height,width = self.height,self.width
+        
+        image_patches = []
         for r in range(row_nbr):
             for c in range(col_nbr):
                 r0, r1 = offset[0] + height * r, offset[0] + height * (r + 1)
                 c0, c1 = offset[1] + width * c, offset[1] + width * (c + 1)
                 print(r0, r1, c0, c1)
                 img_patch= img_filtered[r0:r1, c0:c1]
-                self.image_patches.append(img_patch)
-        return self.image_patches
+                image_patches.append(img_patch)
+        return image_patches
+        
+    def rec_patches(self, img_filtered, engine=None, params={}, app=None):
+        if engine is None: return []
+            
+        row, col = 0, 0
+        offy, offx = self.offset
+        results = []
+        img_patches = self.get_patches(img_filtered)
+        
+        for img in img_patches:
+            loc_result = engine.ocr(img, **params)
+
+            for label in loc_result:
+                points = label[0]
+                text = label[1][0]
+                confidence = label[1][1]
+                
+                for point in points:
+                    point[0] += offx + col*self.width
+                    point[1] += offy + row*self.height
+                results.append([points, [text, confidence]])
+                
+            col += 1
+            if col == self.col_nbr:
+                col = 0
+                row += 1
+            if app is not None: app.processEvents()
+
+        return results
 
 
 if __name__ =="__main__":

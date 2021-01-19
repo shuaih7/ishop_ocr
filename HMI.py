@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
         self.image = None
         self.camera = None
         self.isLive = False
-        self.patch = SNPatch()
+        self.patcher = SNPatch()
         self.doc_folder = self.config_matrix["Global"]["doc_folder"]
         self.ocr_folder = self.config_matrix["Global"]["ocr_folder"]
         self.supported_images = [".bmp", ".png", ".jpg", ".tif"]
@@ -203,7 +203,10 @@ class MainWindow(QMainWindow):
                     if image is None: 
                         continue
                     else:
-                        results = self.model_ocr.ocr(image, **params)
+                        if self.config_matrix["Model_OCR"]["use_patch"]:
+                            results = self.patcher(image, self.model_ocr, params, QApplication)
+                        else:
+                            results = self.model_ocr.ocr(image, **params)
                         
                     for result in results:
                         self.part_list.append([result[1][0], "(0,0)"])
@@ -223,7 +226,10 @@ class MainWindow(QMainWindow):
                 if self.image is None: return
                 if self.camera is None or not self.isLive: return
                 image = self.image
-                results = self.model_ocr.ocr(image, **params)
+                if self.config_matrix["Model_OCR"]["use_patch"]:
+                    results = self.patcher(image, self.model_ocr, params, QApplication)
+                else:
+                    results = self.model_ocr.ocr(image, **params)
                 
                 for result in results:
                     self.part_list.append([result[1][0], "(0,0)"]) # TODO: result[1] -> [result[1][0], position]

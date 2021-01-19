@@ -41,3 +41,15 @@
 
 2021-01-18 19:08:31,793 - HMI.py[line:379] - INFO: i-shopOCR user interface has been closed.
 
+2021-01-18 19:13:34,495 - HMI.py[line:380] - INFO: Found camera NR0190090349, connecting...
+2021-01-18 19:13:34,621 - HMI.py[line:380] - INFO: Successfully connected camera NR0190090349.
+2021-01-18 19:13:43,633 - HMI.py[line:380] - ERROR: Camera connection is interrupted, please reconnect.
+2021-01-18 19:13:46,947 - HMI.py[line:380] - INFO: Found camera NR0190090349, connecting...
+2021-01-18 19:13:47,059 - HMI.py[line:380] - INFO: Successfully connected camera NR0190090349.
+2021-01-18 19:14:44,340 - HMI.py[line:380] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-19 11:17:06,656 - HMI.py[line:386] - WARNING: Camera with the serial number NR0190090349 does not in the list.
+2021-01-19 11:19:25,576 - HMI.py[line:386] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-19 11:29:31,357 - HMI.py[line:386] - INFO: i-shopOCR user interface has been closed.
+
