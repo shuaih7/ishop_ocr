@@ -40,9 +40,9 @@ class ConfigWidget(QTabWidget):
         self.config_matrix["Global"]["doc_folder"] = self.docFileLine.text()
         self.config_matrix["Global"]["ocr_folder"] = self.ocrFileLine.text()
         
-        self.generalCfgSignal.emit()
         self.saveConfig()
         self.exitConfig()
+        self.generalCfgSignal.emit()
         
     @pyqtSlot()    
     def cameraConfig(self):
@@ -52,17 +52,17 @@ class ConfigWidget(QTabWidget):
         self.config_matrix["Camera"]["Gain"] = int(self.gainLine.text())
         self.config_matrix["Camera"]["Binning"] = int(self.binningLine.text())
         
-        self.cameraCfgSignal.emit()
         self.saveConfig()
         self.exitConfig()
+        self.cameraCfgSignal.emit()
     
     @pyqtSlot()    
     def lightConfig(self):    
         # Save the lighting configurations
         # ......
-        self.lightCfgSignal.emit()
         self.saveConfig()
         self.exitConfig()
+        self.lightCfgSignal.emit()
     
     @pyqtSlot()    
     def modelConfig(self):  
@@ -85,9 +85,9 @@ class ConfigWidget(QTabWidget):
             self.config_matrix["Model_OCR"]["build_params"]["model_dir"] = model_ocr_dir
             self.config_matrix["Global"]["use_gpu"] = self.gpuBtn.isChecked()
             self.config_matrix["Global"]["gpu_mem"] = int(self.gpuMemLine.text())
-            self.modelCfgSignal.emit()
             self.saveConfig()
             self.exitConfig()
+            self.modelCfgSignal.emit()
             
     @pyqtSlot()
     def setDocModelDir(self):
@@ -111,7 +111,6 @@ class ConfigWidget(QTabWidget):
             
     def checkModelPath(self, path, rec_prefix=None):
         if not os.path.exists(path): return False
-        
         cls_path = os.path.join(path, "cls")
         det_path = os.path.join(path, "det")
         

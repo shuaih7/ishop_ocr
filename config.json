@@ -1,6 +1,6 @@
 {
     "Global": {
-        "mode": "file",
+        "mode": "live",
         "use_gpu": true,
         "gpu_mem": 2000,
         "disp_intv": 20,
@@ -9,7 +9,7 @@
     },
     "Camera": {
         "DeviceSerialNumber": "NR0190090349",
-        "ExposureTime": 2000,
+        "ExposureTime": 6000,
         "Gain": 20,
         "Binning": 4
     },

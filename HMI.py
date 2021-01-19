@@ -169,12 +169,10 @@ class MainWindow(QMainWindow):
             cam.close_device()
             
     def closeLiveStream(self):
-        if self.camera is not None:
-            try: self.camera.close_device()
-            except Exception as expt: pass
-            self.image = cv2.imread(os.path.join(abs_path, os.path.join(r"data\imgs","preface.jpg")))
-            self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
-            self.imageLabel.refresh(self.image)
+        self.isLive = False
+        self.image = cv2.imread(os.path.join(abs_path, os.path.join(r"data\imgs","preface.jpg")))
+        self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+        self.imageLabel.refresh(self.image)
             
     def initModels(self):
         params_doc = self.config_matrix["Model_DOC"]
@@ -189,57 +187,54 @@ class MainWindow(QMainWindow):
     
     @pyqtSlot()    
     def recParts(self):
-        if len(self.scan_dict) == 0:
-            QMessageBox.warning(self,"警告", "请先扫描交接单！", QMessageBox.Yes)
-        else:
-            self.part_list = []
-            params = self.config_matrix["Model_OCR"]["infer_params"]
+        self.part_list = []
+        params = self.config_matrix["Model_OCR"]["infer_params"]
+        
+        if self.mode == "file":
+            img_list = self.imageLoader(self.ocr_folder)
             
-            if self.mode == "file":
-                img_list = self.imageLoader(self.ocr_folder)
-                
-                for img_file in img_list:
-                    image = cv2.imread(img_file, cv2.IMREAD_COLOR)
-                    if image is None: 
-                        continue
-                    else:
-                        if self.config_matrix["Model_OCR"]["use_patch"]:
-                            results = self.patcher(image, self.model_ocr, params, QApplication)
-                        else:
-                            results = self.model_ocr.ocr(image, **params)
-                        
-                    for result in results:
-                        self.part_list.append([result[1][0], "(0,0)"])
-                        points = np.array(result[0],dtype=np.float32)
-                        texts = result[1][0]
-                        image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
-                                 
-                    _, filename = os.path.split(img_file)
-                    save_path = os.path.join(abs_path, os.path.join("data/result/ocr", filename))
-                    #cv2.imwrite(save_path, image)
-                    
-                    self.imageLabel.refresh(image)
-                    QApplication.processEvents()    
-                    self.matchTable()
-                    
-            elif self.mode == "live":
-                if self.image is None: return
-                if self.camera is None or not self.isLive: return
-                image = self.image
-                if self.config_matrix["Model_OCR"]["use_patch"]:
-                    results = self.patcher(image, self.model_ocr, params, QApplication)
+            for img_file in img_list:
+                image = cv2.imread(img_file, cv2.IMREAD_COLOR)
+                if image is None: 
+                    continue
                 else:
-                    results = self.model_ocr.ocr(image, **params)
-                
+                    if self.config_matrix["Model_OCR"]["use_patch"]:
+                        results = self.patcher(image, self.model_ocr, params, QApplication)
+                    else:
+                        results = self.model_ocr.ocr(image, **params)
+                    
                 for result in results:
-                    self.part_list.append([result[1][0], "(0,0)"]) # TODO: result[1] -> [result[1][0], position]
+                    self.part_list.append([result[1][0], "(0,0)"])
                     points = np.array(result[0],dtype=np.float32)
                     texts = result[1][0]
                     image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
-                 
-                self.imageLabel.refresh(image, mode="hold")
-                QApplication.processEvents()   
+                             
+                _, filename = os.path.split(img_file)
+                save_path = os.path.join(abs_path, os.path.join("data/result/ocr", filename))
+                #cv2.imwrite(save_path, image)
+                
+                self.imageLabel.refresh(image)
+                QApplication.processEvents()    
                 self.matchTable()
+                
+        elif self.mode == "live":
+            if self.image is None: return
+            if self.camera is None or not self.isLive: return
+            image = self.image
+            if self.config_matrix["Model_OCR"]["use_patch"]:
+                results = self.patcher(image, self.model_ocr, params, QApplication)
+            else:
+                results = self.model_ocr.ocr(image, **params)
+            
+            for result in results:
+                self.part_list.append([result[1][0], "(0,0)"]) # TODO: result[1] -> [result[1][0], position]
+                points = np.array(result[0],dtype=np.float32)
+                texts = result[1][0]
+                image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+             
+            self.imageLabel.refresh(image, mode="hold")
+            QApplication.processEvents()   
+            self.matchTable()
 
     @pyqtSlot()        
     def recDocument(self):
