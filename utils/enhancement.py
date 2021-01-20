@@ -97,7 +97,7 @@ class SNPatch():
             for c in range(col_nbr):
                 r0, r1 = offset[0] + height * r, offset[0] + height * (r + 1)
                 c0, c1 = offset[1] + width * c, offset[1] + width * (c + 1)
-                print(r0, r1, c0, c1)
+                # print(r0, r1, c0, c1)
                 img_patch= img_filtered[r0:r1, c0:c1]
                 image_patches.append(img_patch)
         return image_patches
@@ -105,9 +105,9 @@ class SNPatch():
     def rec_patches(self, img_filtered, engine=None, params={}, app=None):
         if engine is None: return []
             
+        results = []
         row, col = 0, 0
         offy, offx = self.offset
-        results = []
         img_patches = self.get_patches(img_filtered)
         
         for img in img_patches:
@@ -130,6 +130,12 @@ class SNPatch():
             if app is not None: app.processEvents()
 
         return results
+  
+    def _merge_text(self, results):
+        if len(results[0]) <= 1: 
+            return results
+        elif len(results[0]) == 2:
+            string1 = 0
 
 
 if __name__ =="__main__":

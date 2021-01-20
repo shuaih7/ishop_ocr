@@ -103,3 +103,59 @@
 2021-01-19 17:31:09,781 - HMI.py[line:381] - WARNING: DeviceManager.open_device_by_sn:{-8}{The device has already been opened}
 2021-01-19 17:31:10,006 - HMI.py[line:381] - INFO: Found camera NR0190090349, connecting...
 2021-01-19 17:31:10,117 - HMI.py[line:381] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 17:37:15,007 - HMI.py[line:381] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-19 17:37:40,332 - HMI.py[line:382] - INFO: Found camera NR0190090349, connecting...
+2021-01-19 17:37:40,444 - HMI.py[line:382] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 17:38:01,621 - HMI.py[line:382] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-19 18:08:30,031 - HMI.py[line:382] - INFO: Found camera NR0190090349, connecting...
+2021-01-19 18:08:30,151 - HMI.py[line:382] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 18:09:02,422 - HMI.py[line:382] - INFO: Found camera NR0190090349, connecting...
+2021-01-19 18:09:02,535 - HMI.py[line:382] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 18:09:30,712 - HMI.py[line:382] - INFO: Found camera NR0190090349, connecting...
+2021-01-19 18:09:30,831 - HMI.py[line:382] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 18:11:50,760 - HMI.py[line:382] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-19 18:17:49,723 - HMI.py[line:381] - INFO: Found camera NR0190090349, connecting...
+2021-01-19 18:17:49,839 - HMI.py[line:381] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 18:20:52,051 - HMI.py[line:384] - INFO: Found camera NR0190090349, connecting...
+2021-01-19 18:20:52,160 - HMI.py[line:384] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 18:21:27,299 - HMI.py[line:384] - INFO: Found camera NR0190090349, connecting...
+2021-01-19 18:21:27,412 - HMI.py[line:384] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 18:21:30,428 - HMI.py[line:384] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:29,831 - HMI.py[line:385] - INFO: Found camera NR0190090349, connecting...
+2021-01-19 18:22:29,949 - HMI.py[line:385] - INFO: Successfully connected camera NR0190090349.
+2021-01-19 18:22:33,657 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:33,685 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:33,689 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:35,471 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:37,231 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:37,795 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:38,077 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:38,232 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:38,394 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:38,525 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:22:38,693 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:23:37,007 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:23:39,737 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:23:53,189 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-19 18:23:58,371 - HMI.py[line:385] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-20 14:44:29,720 - HMI.py[line:384] - INFO: 发现相机NR0190090349， 连接相机 ...
+2021-01-20 14:44:29,843 - HMI.py[line:384] - INFO: Successfully connected camera NR0190090349.
+2021-01-20 14:50:06,671 - HMI.py[line:385] - INFO: 发现相机NR0190090349， 连接相机 ...
+2021-01-20 14:50:06,784 - HMI.py[line:385] - INFO: Successfully connected camera NR0190090349.
+2021-01-20 14:50:09,718 - HMI.py[line:385] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-20 14:53:43,548 - HMI.py[line:385] - INFO: 发现相机NR0190090349， 连接相机 ...
+2021-01-20 14:53:43,671 - HMI.py[line:385] - INFO: Successfully connected camera NR0190090349.
+2021-01-20 14:54:57,599 - HMI.py[line:385] - INFO: 发现相机NR0190090349， 连接相机 ...
+2021-01-20 14:54:57,713 - HMI.py[line:385] - INFO: Successfully connected camera NR0190090349.
+2021-01-20 15:45:04,415 - HMI.py[line:385] - INFO: 发现相机NR0190090349， 连接相机 ...
+2021-01-20 15:45:04,540 - HMI.py[line:385] - INFO: Successfully connected camera NR0190090349.
+2021-01-20 15:45:19,492 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-20 15:45:21,524 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-20 15:45:23,740 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
+2021-01-20 15:47:24,111 - HMI.py[line:385] - INFO: i-shopOCR user interface has been closed.
+

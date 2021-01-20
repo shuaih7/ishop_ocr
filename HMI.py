@@ -27,6 +27,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidget
 
 import gxipy as gx
 from paddleocr.paddleocr import PaddleOCR
+#from paddleocr2.paddleocr import PaddleOCR
 from log import getLogger
 from utils import draw_polylines, write_excel, SNPatch
 from ConfigWidget import ConfigWidget
@@ -102,12 +103,12 @@ class MainWindow(QMainWindow):
             # create a device manager
             device_manager = gx.DeviceManager()
             dev_num, dev_info_list = device_manager.update_device_list()
-            
-            if dev_num == 0: 
-                self.messager("Camera with the serial number {} does not in the list.".format(SN), flag="warning")
-                return
+            if len(dev_info_list) > 0:
+                SN = dev_info_list[0].get("sn")
+                self.messager("发现相机{}， 连接相机 ...".format(SN))
             else:
-                self.messager("Found camera {}, connecting...".format(SN), flag="info")
+                self.messager("未发现相机,请检查相机连接并重试".format(SN))
+                return
                 
             # open the camera device by serial number
             try:
@@ -122,7 +123,6 @@ class MainWindow(QMainWindow):
                     cam.BinningVertical.set(Binning)
                 except Exception as expt: 
                     self.messager(expt, flag="warning")
-                
                 
                 # set trigger mode and trigger source
                 # cam.TriggerMode.set(gx.GxSwitchEntry.OFF)
@@ -222,7 +222,11 @@ class MainWindow(QMainWindow):
             if self.camera is None or not self.isLive: return
             image = self.image
             if self.config_matrix["Model_OCR"]["use_patch"]:
-                results = self.patcher(image, self.model_ocr, params, QApplication)
+                try:
+                    results = self.patcher(image, self.model_ocr, params, QApplication)
+                except Exception as expt:
+                    self.messager("Error using the patch method for recognition.", flag="warning")
+                    results = []
             else:
                 results = self.model_ocr.ocr(image, **params)
             

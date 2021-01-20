@@ -8,7 +8,7 @@
         "ocr_folder": "E:/Projects/Part_Number/dataset/test/img"
     },
     "Camera": {
-        "DeviceSerialNumber": "NR0190090349",
+        "DeviceSerialNumber": "0000000000",
         "ExposureTime": 6000,
         "Gain": 20,
         "Binning": 4
