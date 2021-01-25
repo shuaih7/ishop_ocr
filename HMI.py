@@ -180,6 +180,7 @@ class MainWindow(QMainWindow):
         params_doc = self.config_matrix["Model_DOC"]
         params_doc["build_params"]["use_gpu"] = self.config_matrix["Global"]["use_gpu"]
         params_doc["build_params"]["gpu_mem"] = self.config_matrix["Global"]["gpu_mem"]
+        
         params_ocr = self.config_matrix["Model_OCR"]
         params_ocr["build_params"]["use_gpu"] = self.config_matrix["Global"]["use_gpu"]
         params_ocr["build_params"]["gpu_mem"] = self.config_matrix["Global"]["gpu_mem"]
@@ -198,6 +199,7 @@ class MainWindow(QMainWindow):
             img_list = self.imageLoader(self.ocr_folder)
             
             for img_file in img_list:
+                self.part_list = [] # Clear the result list
                 image = cv2.imread(img_file, cv2.IMREAD_COLOR)
                 if image is None: 
                     continue
@@ -208,19 +210,23 @@ class MainWindow(QMainWindow):
                     except Exception as expt:
                         self.messager("Error using the patch method for recognition.", flag="warning")
                         results = []
+                    # results = self.patcher(image, angle, self.model_ocr, params, QApplication)
                     
                 for result in results:
-                    self.part_list.append([result[1][0], "(0,0)"])
+                    self.part_list.append([result[1][0], str(result[2])])
                     points = np.array(result[0],dtype=np.float32)
                     texts = result[1][0]
-                    image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
-                _, filename = os.path.split(img_file)
-                save_path = os.path.join(abs_path, os.path.join("data/result/ocr", filename))
-                #cv2.imwrite(save_path, image)
+                    
+                    if result[-1]: color = (0,255,0)
+                    else: color = (255,0,0) 
+                    image = draw_polylines(image, [points], [texts], size=2.0, color=color, thickness=7)
+                # _, filename = os.path.split(img_file)
+                # save_path = os.path.join(r"E:\Projects\Part_Number\dataset\res", filename)
+                # cv2.imwrite(save_path, image)
                 
                 self.imageLabel.refresh(image)
                 QApplication.processEvents()    
-                self.matchTable()
+                self.updateTable()
                 
         elif self.mode == "live":
             if self.image is None: return
@@ -252,15 +258,18 @@ class MainWindow(QMainWindow):
                 results = self.model_ocr.ocr(image, **params)
             
             for result in results:
-                self.part_list.append([result[1][0], "(0,0)"]) # TODO: result[1] -> [result[1][0], position]
+                self.part_list.append([result[1][0], str(result[2])]) # TODO: result[1] -> [result[1][0], position]
                 points = np.array(result[0],dtype=np.float32)
                 texts = result[1][0]
                 self.messager(texts)
-                image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+                
+                if result[-1]: color = (0,255,0)
+                else: color = (255,0,0) 
+                image = draw_polylines(image, [points], [texts], size=2.0, color=color, thickness=7)
              
             self.imageLabel.refresh(image, mode="hold")
             QApplication.processEvents()   
-            self.matchTable()
+            self.updatehTable()
             #self.lc.set_normal()
 
     @pyqtSlot()        
@@ -274,6 +283,7 @@ class MainWindow(QMainWindow):
             img_list = self.imageLoader(self.doc_folder)
             
             for img_file in img_list:
+                self.scan_dict = {}
                 image = cv2.imread(img_file, cv2.IMREAD_COLOR)
                 if image is None:
                     #todo
@@ -287,7 +297,7 @@ class MainWindow(QMainWindow):
                     if self.isValidNumber(number): 
                         points = np.array(result[0],dtype=np.float32)
                         texts = result[1][0]
-                        image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+                        image = draw_polylines(image, [points], [texts], size=2.0, color=(0,255,0), thickness=7)
                         number = self.formatNumber(number)
                         self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
                         index += 1
@@ -298,7 +308,6 @@ class MainWindow(QMainWindow):
                         
                 self.imageLabel.refresh(image)
                 self.updateTable()
-                self.matchTable()
                 #self.lc.set_normal()
         
         elif self.mode == "live":
@@ -325,14 +334,13 @@ class MainWindow(QMainWindow):
                 if self.isValidNumber(number): 
                     points = np.array(result[0],dtype=np.float32)
                     texts = result[1][0]
-                    image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
+                    image = draw_polylines(image, [points], [texts], size=2.0, color=(0,255,0), thickness=7)
                     number = self.formatNumber(number)
                     self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
                     index += 1
                     
             self.imageLabel.refresh(image, mode="hold")
             self.updateTable()
-            self.matchTable()
 
     @pyqtSlot()
     def createReport(self):
@@ -382,10 +390,7 @@ class MainWindow(QMainWindow):
         self.partTable.updateStatus(item)
         
     def updateTable(self):
-        self.partTable.updateRows(self.scan_dict)
-        
-    def matchTable(self):
-        self.partTable.matchRows(self.part_list, self.scan_dict)
+        self.partTable.updateRows(self.scan_dict, self.part_list)
         
     def isValidNumber(self, number):
         if len(number)>=10 and number[4]=="M":

@@ -35,7 +35,7 @@ class SNPatch():
             for c in range(self.col_nbr):
                 r0, r1 = self.offset[0] + self.height * r, self.offset[0] + self.height * (r + 1)
                 c0, c1 = self.offset[1] + self.width * c, self.offset[1] + self.width * (c + 1)
-                self.roi.append((r0,c0,r1,c1))
+                self.roi.append([(r0,c0,r1,c1), (r, c)])
                 #print("r0,c0,r1,c1: ",r0, c0, r1, c1)
 
     # todo, multiprocessing
@@ -54,7 +54,7 @@ class SNPatch():
         
         image_patches = []
         for i,roi in enumerate(self.roi):
-            r0,c0,r1,c1 = roi
+            r0,c0,r1,c1 = roi[0]
             img_patch= img_filtered[r0:r1, c0:c1]
             cv2.imwrite(f"output/{i}.png",img_patch)
             image_patches.append(img_patch)
@@ -65,10 +65,10 @@ class SNPatch():
         if angle not in [0, 90, -90, 180, -180]:
             raise ValueError("Rotate angle only support 0, 90, -90, 180.")
             
-        row, col = 0, 0
         offy, offx = self.offset
         results = []
         img_patches = self.get_patches(img_filtered)
+        
         for i, img in enumerate(img_patches):
             cur_result = []
             img = rotate_image(img, angle)
@@ -80,47 +80,59 @@ class SNPatch():
                 text = label[1][0].upper()
                 confidence = label[1][1]
 
-                r0, c0, r1, c1 = self.roi[i]
+                r0, c0, r1, c1 = self.roi[i][0]
                 # print("r0,c0,r1,c1:", r0, c0, r1, c1)
                 for point in points:
                     point[0] += c0
                     point[1] += r0
-                cur_result.append([points, [text, confidence]])
-                
-            # results += self.merge_results(cur_result)
-            results += cur_result
+                cur_result.append([points, [text, confidence], self.roi[i][1], True])
+            
+            results += self._merge_results(cur_result)
+            # results += cur_result
 
             if app is not None: app.processEvents()
 
         return results
         
-    def merge_results(self, results):
-        if len(results) != 2:
-            return results
+    def _merge_results(self, results, conf_thresh=0.8, dir="hor"):
+        if len(results) < 2: return results
         
+        confidences = []
+        for result in results:
+            confidences.append(result[1][1])
+            
         xs, ys = [], []
-        for pt in results[0][0] + results[1][0]:
-            xs.append(pt[0])
-            ys.append(pt[1])
-        
+        for result in results:
+            for pt in result[0]:
+                xs.append(pt[0])
+                ys.append(pt[1])
+
         xmin = min(xs)
         ymin = min(ys)
         xmax = max(xs)
         ymax = max(ys)
-        
-        # Clock-wise         
         roi = [[xmin, ymin], [xmax, ymin], [xmax, ymax], [xmin, ymax]]
-
-        if len(results[0][1][0]) >= len(results[1][1][0]):
-            text = results[0][1][0] + results[1][1][0]
-        else:
-            text = results[1][1][0] + results[0][1][0]
-        confidence = (results[0][1][1] + results[1][1][1])/2
+    
+        if len(results) != 2 or min(confidences) < conf_thresh:
+            return [[roi, ["---", 0.0], results[0][2], False]]
         
-        mresult = [[roi, [text, confidence]]]
+        if dir == "hor":
+            if results[0][0][0] < results[1][0][0]:
+                text = results[0][1][0] + results[1][1][0]
+            else:
+                text = results[1][1][0] + results[0][1][0]
+                
+        elif dir == "ver":
+            if results[0][0][1] < results[1][0][1]:
+                text = results[0][1][0] + results[1][1][0]
+            else:
+                text = results[1][1][0] + results[0][1][0]
         
-        return mresult
-
+        conf = (results[0][1][1] + results[1][1][1]) / 2
+        merge_result = [[roi, [text, conf], results[0][2], True]]
+        
+        return merge_result
+        
 
 if __name__ =="__main__":
     import time

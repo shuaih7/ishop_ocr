@@ -4,7 +4,7 @@
         "use_gpu": true,
         "gpu_mem": 2000,
         "disp_intv": 20,
-        "doc_folder": "E:/Projects/Part_Number/dataset/test/doc",
+        "doc_folder": "E:/Projects/Part_Number/dataset/doc",
         "ocr_folder": "E:/Projects/Part_Number/dataset/test"
     },
     "Camera": {
@@ -18,11 +18,16 @@
         "use_patch": true,
         "angle": 90,
         "build_params": {
-            "lang": "ch",
+            "lang": "en",
             "use_angle_cls": true,
             "model_dir": "E:/Projects/Part_Number/model/demo",
             "use_gpu": true,
             "gpu_mem": 2000,
+            "det_db_thresh": 0.3,
+            "det_db_box_thresh": 0.6,
+            "det_db_unclip_ratio": 1.5,
+            "rec_image_shape": "3,32,100",
+            "rec_char_type": "en",
             "cls_model_dir": "E:/Projects/Part_Number/model/demo\\cls",
             "det_model_dir": "E:/Projects/Part_Number/model/demo\\det",
             "rec_model_dir": "E:/Projects/Part_Number/model/demo\\rec\\en"
@@ -40,6 +45,11 @@
             "model_dir": "C:/Users/shuai/.paddleocr/1.1",
             "use_gpu": true,
             "gpu_mem": 2000,
+            "det_db_thresh": 0.3,
+            "det_db_box_thresh": 0.5,
+            "det_db_unclip_ratio": 2.0,
+            "rec_image_shape": "3,32,320",
+            "rec_char_type": "ch",
             "cls_model_dir": "C:/Users/shuai/.paddleocr/1.1\\cls",
             "det_model_dir": "C:/Users/shuai/.paddleocr/1.1\\det",
             "rec_model_dir": "C:/Users/shuai/.paddleocr/1.1\\rec\\ch"
