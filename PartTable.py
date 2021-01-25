@@ -28,7 +28,7 @@ class PartTable(QTableWidget):
         self.match_color = QColor(6, 168, 255)
         self.unmap_parts_color = QColor(255, 165, 0)
         self.unmap_docs_color = QColor(150, 150, 150)
-        self.check_color = QColor(6, 255, 168)
+        self.check_color = QColor(0, 255, 0)
         self.scrap_color = QColor(255, 60, 6)
         self.background_color = QColor(222, 222, 222)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -38,6 +38,7 @@ class PartTable(QTableWidget):
     def updateRows(self, info_dict, info_list):
         self.clearRows()
         unmap_parts_list = []
+        self.info_dict = info_dict
         result_dict = copy.deepcopy(info_dict)
         
         row = 0
@@ -56,7 +57,7 @@ class PartTable(QTableWidget):
                 self.item(row, 2).setTextAlignment(Qt.AlignCenter)
                 self.item(row, 0).setBackground(QBrush(self.match_color))
                 self.item(row, 1).setBackground(QBrush(self.match_color))
-                self.item(row, 2).setBackground(QBrush(self.background_color))
+                self.item(row, 2).setBackground(QBrush(self.match_color))
                 
                 result_dict.pop(number)
                 row += 1
@@ -119,7 +120,7 @@ class PartTable(QTableWidget):
         elif item.text() == "报废":
             status = "未确认"
             item.setText(status)
-            item.setBackground(QBrush(self.background_color))
+            item.setBackground(QBrush(self.self.check_color))
         self.info_dict[number] = status
         
     def getCheckList(self):
