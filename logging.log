@@ -159,3 +159,28 @@
 2021-01-20 15:45:23,740 - HMI.py[line:385] - WARNING: Error using the patch method for recognition.
 2021-01-20 15:47:24,111 - HMI.py[line:385] - INFO: i-shopOCR user interface has been closed.
 
+2021-01-24 21:47:37,098 - HMI.py[line:391] - INFO: 未发现相机,请检查相机连接并重试
+2021-01-24 21:47:42,682 - HMI.py[line:391] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-24 21:55:45,263 - HMI.py[line:393] - INFO: 未发现相机,请检查相机连接并重试
+2021-01-24 21:55:55,037 - HMI.py[line:393] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-24 21:57:25,443 - HMI.py[line:393] - INFO: 未发现相机,请检查相机连接并重试
+2021-01-24 22:12:34,084 - HMI.py[line:393] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-24 22:52:10,733 - HMI.py[line:394] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-24 23:11:27,012 - HMI.py[line:394] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-25 01:37:33,232 - HMI.py[line:394] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-25 01:54:03,561 - HMI.py[line:394] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-25 02:01:53,318 - HMI.py[line:394] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-25 10:21:21,104 - HMI.py[line:394] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-25 10:49:21,200 - HMI.py[line:394] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-25 10:58:51,558 - HMI.py[line:424] - INFO: i-shopOCR user interface has been closed.
+

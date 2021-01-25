@@ -29,7 +29,7 @@ import gxipy as gx
 from paddleocr.paddleocr import PaddleOCR
 #from paddleocr2.paddleocr import PaddleOCR
 from log import getLogger
-from utils import draw_polylines, write_excel, SNPatch
+from utils import draw_polylines, write_excel, SNPatch, LuminatorControl
 from ConfigWidget import ConfigWidget
 from PushButton import PushButton
 
@@ -72,6 +72,7 @@ class MainWindow(QMainWindow):
         self.camera = None
         self.isLive = False
         self.patcher = SNPatch()
+        self.lc = LuminatorControl("COM7")
         self.doc_folder = self.config_matrix["Global"]["doc_folder"]
         self.ocr_folder = self.config_matrix["Global"]["ocr_folder"]
         self.supported_images = [".bmp", ".png", ".jpg", ".tif"]
@@ -79,6 +80,7 @@ class MainWindow(QMainWindow):
         self.part_list = []
         self.scan_dict = {}
         self.initModels()
+        self.lc.set_doc()
         
     def initCanvas(self):
         if self.mode == "live":
@@ -187,6 +189,8 @@ class MainWindow(QMainWindow):
     
     @pyqtSlot()    
     def recParts(self):
+        self.lc.set_part()
+
         self.part_list = []
         params = self.config_matrix["Model_OCR"]["infer_params"]
         
@@ -198,17 +202,18 @@ class MainWindow(QMainWindow):
                 if image is None: 
                     continue
                 else:
-                    if self.config_matrix["Model_OCR"]["use_patch"]:
-                        results = self.patcher(image, self.model_ocr, params, QApplication)
-                    else:
-                        results = self.model_ocr.ocr(image, **params)
+                    angle = self.config_matrix["Model_OCR"]["angle"]
+                    try:
+                        results = self.patcher(image, angle, self.model_ocr, params, QApplication)
+                    except Exception as expt:
+                        self.messager("Error using the patch method for recognition.", flag="warning")
+                        results = []
                     
                 for result in results:
                     self.part_list.append([result[1][0], "(0,0)"])
                     points = np.array(result[0],dtype=np.float32)
                     texts = result[1][0]
                     image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
-                             
                 _, filename = os.path.split(img_file)
                 save_path = os.path.join(abs_path, os.path.join("data/result/ocr", filename))
                 #cv2.imwrite(save_path, image)
@@ -220,13 +225,29 @@ class MainWindow(QMainWindow):
         elif self.mode == "live":
             if self.image is None: return
             if self.camera is None or not self.isLive: return
+
+            #use realtime image
+            self.camera.TriggerSoftware.send_command()
+            image_raw = self.camera.data_stream[0].get_image()
+            self.image = image_raw.get_numpy_array()
             image = self.image
+            if image is None:
+                # todo
+                pass
+            else:  # Convert gray scale to BGR
+                c = image.shape[-1]
+                if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+                self.image = image
+                self.imageLabel.refresh(self.image)
+
             if self.config_matrix["Model_OCR"]["use_patch"]:
+                angle = self.config_matrix["Model_OCR"]["angle"]
                 try:
-                    results = self.patcher(image, self.model_ocr, params, QApplication)
+                    results = self.patcher(image, angle, self.model_ocr, params, QApplication)
                 except Exception as expt:
                     self.messager("Error using the patch method for recognition.", flag="warning")
                     results = []
+                # results = self.patcher(image, self.model_ocr, params, QApplication)
             else:
                 results = self.model_ocr.ocr(image, **params)
             
@@ -234,14 +255,18 @@ class MainWindow(QMainWindow):
                 self.part_list.append([result[1][0], "(0,0)"]) # TODO: result[1] -> [result[1][0], position]
                 points = np.array(result[0],dtype=np.float32)
                 texts = result[1][0]
+                self.messager(texts)
                 image = draw_polylines(image, [points], [texts], size=0.5, color=(0,255,0))
              
             self.imageLabel.refresh(image, mode="hold")
             QApplication.processEvents()   
             self.matchTable()
+            #self.lc.set_normal()
 
     @pyqtSlot()        
     def recDocument(self):
+        self.lc.set_doc()
+        self.liveStream()
         self.scan_dict = {}
         params = self.config_matrix["Model_DOC"]["infer_params"]
         
@@ -250,7 +275,8 @@ class MainWindow(QMainWindow):
             
             for img_file in img_list:
                 image = cv2.imread(img_file, cv2.IMREAD_COLOR)
-                if image is None: 
+                if image is None:
+                    #todo
                     continue
                 else:
                     results = self.model_doc.ocr(image, **params)
@@ -273,12 +299,25 @@ class MainWindow(QMainWindow):
                 self.imageLabel.refresh(image)
                 self.updateTable()
                 self.matchTable()
+                #self.lc.set_normal()
         
         elif self.mode == "live":
             if self.image is None: return
             if self.camera is None or not self.isLive: return
-            
+
+            #use realtime image
+            self.camera.TriggerSoftware.send_command()
+            image_raw = self.camera.data_stream[0].get_image()
+            self.image = image_raw.get_numpy_array()
             image = self.image
+            if image is None:
+                pass
+            else:  # Convert gray scale to BGR
+                c = image.shape[-1]
+                if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+                self.image = image
+                self.imageLabel.refresh(self.image)
+
             results = self.model_doc.ocr(image, **params)
             index = 0
             for result in results:
@@ -397,6 +436,3 @@ class MainWindow(QMainWindow):
             sys.exit()
             #ev.accept()
         else: ev.ignore()
-      
-        
-        

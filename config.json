@@ -1,11 +1,11 @@
 {
     "Global": {
-        "mode": "live",
+        "mode": "file",
         "use_gpu": true,
         "gpu_mem": 2000,
         "disp_intv": 20,
         "doc_folder": "E:/Projects/Part_Number/dataset/test/doc",
-        "ocr_folder": "E:/Projects/Part_Number/dataset/test/img"
+        "ocr_folder": "E:/Projects/Part_Number/dataset/test"
     },
     "Camera": {
         "DeviceSerialNumber": "0000000000",
@@ -16,15 +16,16 @@
     "Light": {},
     "Model_OCR": {
         "use_patch": true,
+        "angle": 90,
         "build_params": {
             "lang": "ch",
             "use_angle_cls": true,
-            "model_dir": "C:/Users/shuai/.paddleocr/1.1",
+            "model_dir": "E:/Projects/Part_Number/model/demo",
             "use_gpu": true,
             "gpu_mem": 2000,
-            "cls_model_dir": "C:/Users/shuai/.paddleocr/1.1\\cls",
-            "det_model_dir": "C:/Users/shuai/.paddleocr/1.1\\det",
-            "rec_model_dir": "C:/Users/shuai/.paddleocr/1.1\\rec\\ch"
+            "cls_model_dir": "E:/Projects/Part_Number/model/demo\\cls",
+            "det_model_dir": "E:/Projects/Part_Number/model/demo\\det",
+            "rec_model_dir": "E:/Projects/Part_Number/model/demo\\rec\\en"
         },
         "infer_params": {
             "cls": false,
