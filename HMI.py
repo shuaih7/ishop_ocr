@@ -293,7 +293,7 @@ class MainWindow(QMainWindow):
             img_list = self.imageLoader(self.doc_folder)
             
             for img_file in img_list:
-                image, results = self.doc_process.infer(img_file, params, self.mode)
+                image, results = self.doc_process(img_file, params, self.mode)
                 self.scan_dict = self.doc_process.scan_dict
                 self.imageLabel.refresh(image)
                 self.updateTable()
@@ -314,7 +314,7 @@ class MainWindow(QMainWindow):
                 if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
             self.image = image
             
-            image, results = self.doc_process.infer(img_file, params, self.mode)
+            image, results = self.doc_process(img_file, params, self.mode)
             self.scan_dict = self.doc_process.scan_dict
             self.imageLabel.refresh(image, mode=self.det_type)
             self.updateTable()
@@ -368,18 +368,6 @@ class MainWindow(QMainWindow):
         
     def updateTable(self):
         self.partTable.updateRows(self.scan_dict, self.part_list)
-        
-    def isValidNumber(self, number):
-        if len(number)>=10 and "M" in number and "A" in number:
-            return True
-        else:
-            return False
-            
-    def formatNumber(self, number):
-        number = number.replace("O", "0")
-        number = number.replace("o", "0")
-        number = number.replace("I", "1")
-        return number
         
     def extendModelParams(self, params):
         model_dir = params['model_dir']

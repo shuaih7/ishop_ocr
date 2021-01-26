@@ -20,6 +20,15 @@ class DocProcess(BaseProcess):
     def __init__(self, model=None, messager=None):
         super(DocProcess, self).__init__(model=model, messager=messager)
         
+    def __call__(self, image, params, mode):
+        image = self.preprocess(image)
+        image, results = self.infer(image, params, mode)
+        image, results = self.postprocess(image, results)
+        return image, results
+        
+    def preprocess(self, image):
+        return image
+        
     def infer(self, image, params, mode):
         if mode == "file":
             if not isinstance(image, str):
@@ -35,7 +44,6 @@ class DocProcess(BaseProcess):
             self.sendMessage("交接单检测中 ...")
             
         results = self.model.ocr(image, **params)
-        image, results = self.postprocess(image, results)
         self.sendMessage("交接单检测完成。")
         return image, results
             

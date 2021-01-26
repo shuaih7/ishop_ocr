@@ -18,8 +18,9 @@ class BaseProcess(ABC):
     def __init__(self, model=None, messager=None):
         self.model = model
         self.messager = messager
-        
-    def preprocess(image):
+    
+    @abstractmethod    
+    def preprocess(self, image):
         return image
         
     @abstractmethod

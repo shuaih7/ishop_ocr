@@ -84,3 +84,11 @@
 2021-01-27 01:59:46,972 - HMI.py[line:405] - INFO: 交接单检测完成。
 2021-01-27 01:59:52,676 - HMI.py[line:405] - INFO: i-shopOCR user interface has been closed.
 
+2021-01-27 02:28:48,796 - HMI.py[line:393] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\2021-01-13_18_42_00_660.bmp ...
+2021-01-27 02:28:49,992 - HMI.py[line:393] - INFO: 交接单检测完成。
+2021-01-27 02:30:49,664 - HMI.py[line:393] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\2021-01-13_18_42_00_660.bmp ...
+2021-01-27 02:30:50,827 - HMI.py[line:393] - INFO: 交接单检测完成。
+2021-01-27 02:30:50,907 - HMI.py[line:393] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\doc_2.png ...
+2021-01-27 02:30:51,559 - HMI.py[line:393] - INFO: 交接单检测完成。
+2021-01-27 02:30:55,889 - HMI.py[line:393] - INFO: i-shopOCR user interface has been closed.
+
