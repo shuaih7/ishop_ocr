@@ -13,6 +13,7 @@ import sys
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QImage, QPixmap, QPainter
+from utils import draw_texts
 
 
 class ImageLabel(QLabel):
@@ -29,7 +30,14 @@ class ImageLabel(QLabel):
         self.disp_intv = self.config_matrix["Global"]["disp_intv"]
         self.messager = messager
 
-    def refresh(self, image, mode=None):
+    def refresh(self, image, mode=None, rois=None):
+        if rois is not None:
+            for roi in rois:
+                r0, c0 ,r1, c1 = roi[0]
+                pos = [(c0+c1)/2, (r0+r1)/2]
+                text = str(roi[1])
+                image = draw_texts(image, [text], [pos], size=5, color=(255,165,0), thickness=20)
+    
         h, w, ch = image.shape
         bytesPerLine = ch*w
         convertToQtFormat = QImage(image.data.tobytes(), w, h, bytesPerLine, QImage.Format_RGB888)

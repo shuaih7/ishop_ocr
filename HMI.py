@@ -72,6 +72,7 @@ class MainWindow(QMainWindow):
         self.camera = None
         self.isLive = False
         self.patcher = SNPatch()
+        self.rois = self.patcher.set_roi()
         self.lc = LuminatorControl("COM7")
         self.doc_folder = self.config_matrix["Global"]["doc_folder"]
         self.ocr_folder = self.config_matrix["Global"]["ocr_folder"]
@@ -191,7 +192,6 @@ class MainWindow(QMainWindow):
     @pyqtSlot()    
     def recParts(self):
         self.lc.set_part()
-
         self.part_list = []
         params = self.config_matrix["Model_OCR"]["infer_params"]
         
@@ -224,7 +224,7 @@ class MainWindow(QMainWindow):
                 # save_path = os.path.join(r"E:\Projects\Part_Number\dataset\res", filename)
                 # cv2.imwrite(save_path, image)
                 
-                self.imageLabel.refresh(image)
+                self.imageLabel.refresh(image, rois=self.rois)
                 QApplication.processEvents()    
                 self.updateTable()
                 
@@ -267,9 +267,9 @@ class MainWindow(QMainWindow):
                 else: color = (255,0,0) 
                 image = draw_polylines(image, [points], [texts], size=2.0, color=color, thickness=7)
              
-            self.imageLabel.refresh(image, mode="hold")
+            self.imageLabel.refresh(image, mode="hold", rois=self.rois)
             QApplication.processEvents()   
-            self.updatehTable()
+            self.updateTable()
             #self.lc.set_normal()
 
     @pyqtSlot()        
@@ -393,7 +393,7 @@ class MainWindow(QMainWindow):
         self.partTable.updateRows(self.scan_dict, self.part_list)
         
     def isValidNumber(self, number):
-        if len(number)>=10 and number[4]=="M":
+        if len(number)>=10 and "M" in number and "A" in number:
             return True
         else:
             return False
@@ -402,7 +402,6 @@ class MainWindow(QMainWindow):
         number = number.replace("O", "0")
         number = number.replace("o", "0")
         number = number.replace("I", "1")
-        if number[-3] == "2": number = number[:-4]+"Z"+number[-2:]
         return number
         
     def extendModelParams(self, params):

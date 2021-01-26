@@ -90,7 +90,7 @@
         </attribute>
         <column>
          <property name="text">
-          <string>零件号</string>
+          <string>位置</string>
          </property>
          <property name="font">
           <font>
@@ -112,7 +112,7 @@
         </column>
         <column>
          <property name="text">
-          <string>位置</string>
+          <string>零件号</string>
          </property>
          <property name="font">
           <font>

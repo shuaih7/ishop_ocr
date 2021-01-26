@@ -31,12 +31,16 @@ class SNPatch():
     # todo, roi setting for config files
     def set_roi(self):
         ''''''
+        index = 0
+        self.roi = []  # list of r0,c0,r1,c1
         for r in range(self.row_nbr):
             for c in range(self.col_nbr):
                 r0, r1 = self.offset[0] + self.height * r, self.offset[0] + self.height * (r + 1)
                 c0, c1 = self.offset[1] + self.width * c, self.offset[1] + self.width * (c + 1)
-                self.roi.append([(r0,c0,r1,c1), (r, c)])
+                self.roi.append([(r0,c0,r1,c1), index + 1])
                 #print("r0,c0,r1,c1: ",r0, c0, r1, c1)
+                index += 1
+        return self.roi
 
     # todo, multiprocessing
     def __call__(self, image, angle, engine=None, params={}, app=None):
@@ -51,12 +55,10 @@ class SNPatch():
         return self.rec_patches(self.image_filtered, angle, engine, params, app)
 
     def get_patches(self,img_filtered):
-        
         image_patches = []
         for i,roi in enumerate(self.roi):
             r0,c0,r1,c1 = roi[0]
             img_patch= img_filtered[r0:r1, c0:c1]
-            cv2.imwrite(f"output/{i}.png",img_patch)
             image_patches.append(img_patch)
         return image_patches
         

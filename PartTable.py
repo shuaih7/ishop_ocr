@@ -46,54 +46,22 @@ class PartTable(QTableWidget):
             number, pos = result
             
             if number in result_dict:
-                self.insertRow(row)
-                self.setItem(row, 0, QTableWidgetItem(number))
-                self.setItem(row, 1, QTableWidgetItem(pos))
-                self.setItem(row, 2, QTableWidgetItem("未确认"))
-                
-                self.item(row, 0).setToolTip(number)
-                self.item(row, 0).setTextAlignment(Qt.AlignCenter)
-                self.item(row, 1).setTextAlignment(Qt.AlignCenter)
-                self.item(row, 2).setTextAlignment(Qt.AlignCenter)
-                self.item(row, 0).setBackground(QBrush(self.match_color))
-                self.item(row, 1).setBackground(QBrush(self.match_color))
-                self.item(row, 2).setBackground(QBrush(self.match_color))
-                
+                names = [pos, number, "未确认"]
+                self.insert(row, names, QBrush(self.match_color))
                 result_dict.pop(number)
                 row += 1
             else:
                 unmap_parts_list.append(result)
                 
         for number in result_dict:
-            self.insertRow(row)
-            self.setItem(row, 0, QTableWidgetItem(number))
-            self.setItem(row, 1, QTableWidgetItem("-"))
-            self.setItem(row, 2, QTableWidgetItem("未匹配"))
-            
-            self.item(row, 0).setToolTip(number)
-            self.item(row, 0).setTextAlignment(Qt.AlignCenter)
-            self.item(row, 1).setTextAlignment(Qt.AlignCenter)
-            self.item(row, 2).setTextAlignment(Qt.AlignCenter)
-            self.item(row, 0).setBackground(QBrush(self.unmap_docs_color))
-            self.item(row, 1).setBackground(QBrush(self.unmap_docs_color))
-            self.item(row, 2).setBackground(QBrush(self.unmap_docs_color))
+            names = ["-", number, "未匹配"]
+            self.insert(row, names, QBrush(self.unmap_docs_color))
             row += 1
             
         for result in unmap_parts_list:
             number, pos = result
-            
-            self.insertRow(row)
-            self.setItem(row, 0, QTableWidgetItem(number))
-            self.setItem(row, 1, QTableWidgetItem(pos))
-            self.setItem(row, 2, QTableWidgetItem("未匹配"))
-            
-            self.item(row, 0).setToolTip(number)
-            self.item(row, 0).setTextAlignment(Qt.AlignCenter)
-            self.item(row, 1).setTextAlignment(Qt.AlignCenter)
-            self.item(row, 2).setTextAlignment(Qt.AlignCenter)
-            self.item(row, 0).setBackground(QBrush(self.unmap_parts_color))
-            self.item(row, 1).setBackground(QBrush(self.unmap_parts_color))
-            self.item(row, 2).setBackground(QBrush(self.unmap_parts_color))
+            names = [pos, number, "未匹配"]
+            self.insert(row, names, QBrush(self.unmap_parts_color))
             row += 1
 
         if self.rowCount() > 0:
@@ -130,6 +98,25 @@ class PartTable(QTableWidget):
                 check_list.append(self.item(i,0).text())
         
         return check_list
+        
+    def insert(self, row, names, color):
+        if len(names) != 3:
+            raise ValueError("The names should be of length 3.")
+            
+        self.insertRow(row)
+        pos, number, status = str(names[0]), names[1], names[2]
+        self.setItem(row, 0, QTableWidgetItem(pos))
+        self.setItem(row, 1, QTableWidgetItem(number))
+        self.setItem(row, 2, QTableWidgetItem(status))
+        
+        self.item(row, 0).setTextAlignment(Qt.AlignCenter)
+        self.item(row, 1).setTextAlignment(Qt.AlignCenter)
+        self.item(row, 2).setTextAlignment(Qt.AlignCenter)
+        self.item(row, 0).setBackground(color)
+        self.item(row, 1).setBackground(color)
+        self.item(row, 2).setBackground(color)
+        self.item(row, 1).setToolTip(number)
+        
             
     def clearRows(self):
         for i in range(self.rowCount(),-1,-1):
