@@ -3,7 +3,7 @@
 
 '''
 Created on 01.13.2021
-Updated on 01.17.2021
+Updated on 01.26.2021
 
 Author: haoshaui@handaotech.com
 '''
@@ -71,8 +71,9 @@ class MainWindow(QMainWindow):
         self.image = None
         self.camera = None
         self.isLive = False
+        self.det_type = "doc"
         self.patcher = SNPatch()
-        self.rois = self.patcher.set_roi()
+        self.imageLabel.rois = self.patcher.set_roi()
         self.lc = LuminatorControl("COM7")
         self.doc_folder = self.config_matrix["Global"]["doc_folder"]
         self.ocr_folder = self.config_matrix["Global"]["ocr_folder"]
@@ -87,8 +88,8 @@ class MainWindow(QMainWindow):
         if self.mode == "live":
             self.liveStream()
         if not self.isLive:
-            self.image = cv2.imread(os.path.join(abs_path, os.path.join(r"data\imgs","preface.jpg")))
-            self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+            self.image = cv2.imread(os.path.join(abs_path, os.path.join(r"data\imgs","preface.png")))
+            #self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
             self.imageLabel.refresh(self.image)
             
     def liveStream(self):
@@ -158,7 +159,7 @@ class MainWindow(QMainWindow):
                         c = image.shape[-1]
                         if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
                         self.image = image
-                        self.imageLabel.refresh(self.image)
+                        self.imageLabel.refresh(self.image, mode=self.det_type)
 
                 except: 
                     self.isLive = False
@@ -173,8 +174,8 @@ class MainWindow(QMainWindow):
             
     def closeLiveStream(self):
         self.isLive = False
-        self.image = cv2.imread(os.path.join(abs_path, os.path.join(r"data\imgs","preface.jpg")))
-        self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+        self.image = cv2.imread(os.path.join(abs_path, os.path.join(r"data\imgs","preface.png")))
+        #self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
         self.imageLabel.refresh(self.image)
             
     def initModels(self):
@@ -191,6 +192,7 @@ class MainWindow(QMainWindow):
     
     @pyqtSlot()    
     def recParts(self):
+        self.det_type = "ocr"
         self.lc.set_part()
         self.part_list = []
         params = self.config_matrix["Model_OCR"]["infer_params"]
@@ -224,7 +226,7 @@ class MainWindow(QMainWindow):
                 # save_path = os.path.join(r"E:\Projects\Part_Number\dataset\res", filename)
                 # cv2.imwrite(save_path, image)
                 
-                self.imageLabel.refresh(image, rois=self.rois)
+                self.imageLabel.refresh(image)
                 QApplication.processEvents()    
                 self.updateTable()
                 
@@ -267,13 +269,14 @@ class MainWindow(QMainWindow):
                 else: color = (255,0,0) 
                 image = draw_polylines(image, [points], [texts], size=2.0, color=color, thickness=7)
              
-            self.imageLabel.refresh(image, mode="hold", rois=self.rois)
+            self.imageLabel.refresh(image, mode=self.det_type)
             QApplication.processEvents()   
             self.updateTable()
             #self.lc.set_normal()
 
     @pyqtSlot()        
     def recDocument(self):
+        self.det_type = "doc"
         self.lc.set_doc()
         self.liveStream()
         self.scan_dict = {}
@@ -339,7 +342,7 @@ class MainWindow(QMainWindow):
                     self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
                     index += 1
                     
-            self.imageLabel.refresh(image, mode="hold")
+            self.imageLabel.refresh(image, mode=self.det_type)
             self.updateTable()
 
     @pyqtSlot()
