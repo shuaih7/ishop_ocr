@@ -29,9 +29,10 @@ import gxipy as gx
 from paddleocr.paddleocr import PaddleOCR
 #from paddleocr2.paddleocr import PaddleOCR
 from log import getLogger
-from utils import draw_polylines, write_excel, SNPatch, LuminatorControl
-from ConfigWidget import ConfigWidget
-from PushButton import PushButton
+from process import DocProcess, OcrProcess
+from widgets.ConfigWidget import ConfigWidget
+from widgets.PushButton import PushButton
+from utils import draw_polylines, draw_results, write_excel, SNPatch, LuminatorControl
 
 
 class MainWindow(QMainWindow):
@@ -66,8 +67,12 @@ class MainWindow(QMainWindow):
         self.configWidget.cameraCfgSignal.connect(self.cameraConfig)
         self.configWidget.lightCfgSignal.connect(self.lightConfig)
         self.configWidget.modelCfgSignal.connect(self.modelConfig)
+        
+        # Initialize the inference processing
+        self.doc_process = DocProcess(messager=self.messager)
+        self.ocr_process = OcrProcess(messager=self.messager)
             
-        # Initialization
+        # General Initialization
         self.image = None
         self.camera = None
         self.isLive = False
@@ -189,6 +194,8 @@ class MainWindow(QMainWindow):
         
         self.model_doc = PaddleOCR(**self.extendModelParams(params_doc["build_params"]))
         self.model_ocr = PaddleOCR(**self.extendModelParams(params_ocr["build_params"]))
+        self.doc_process.model = self.model_doc
+        self.ocr_process.model = self.model_ocr
     
     @pyqtSlot()    
     def recParts(self):
@@ -286,29 +293,8 @@ class MainWindow(QMainWindow):
             img_list = self.imageLoader(self.doc_folder)
             
             for img_file in img_list:
-                self.scan_dict = {}
-                image = cv2.imread(img_file, cv2.IMREAD_COLOR)
-                if image is None:
-                    #todo
-                    continue
-                else:
-                    results = self.model_doc.ocr(image, **params)
-                
-                index = 0
-                for result in results:
-                    number = result[1][0]
-                    if self.isValidNumber(number): 
-                        points = np.array(result[0],dtype=np.float32)
-                        texts = result[1][0]
-                        image = draw_polylines(image, [points], [texts], size=2.0, color=(0,255,0), thickness=7)
-                        number = self.formatNumber(number)
-                        self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
-                        index += 1
-                
-                _, filename = os.path.split(img_file)
-                save_path = os.path.join(abs_path, os.path.join("data/result/doc", filename))
-                #cv2.imwrite(save_path, image)
-                        
+                image, results = self.doc_process.infer(img_file, params, self.mode)
+                self.scan_dict = self.doc_process.scan_dict
                 self.imageLabel.refresh(image)
                 self.updateTable()
                 #self.lc.set_normal()
@@ -320,28 +306,16 @@ class MainWindow(QMainWindow):
             #use realtime image
             self.camera.TriggerSoftware.send_command()
             image_raw = self.camera.data_stream[0].get_image()
-            self.image = image_raw.get_numpy_array()
-            image = self.image
+            image = image_raw.get_numpy_array()
             if image is None:
                 pass
             else:  # Convert gray scale to BGR
                 c = image.shape[-1]
                 if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
-                self.image = image
-                self.imageLabel.refresh(self.image)
-
-            results = self.model_doc.ocr(image, **params)
-            index = 0
-            for result in results:
-                number = result[1][0]
-                if self.isValidNumber(number): 
-                    points = np.array(result[0],dtype=np.float32)
-                    texts = result[1][0]
-                    image = draw_polylines(image, [points], [texts], size=2.0, color=(0,255,0), thickness=7)
-                    number = self.formatNumber(number)
-                    self.scan_dict[number] = {"position": "-", "status": "未确认", "id": index}
-                    index += 1
-                    
+            self.image = image
+            
+            image, results = self.doc_process.infer(img_file, params, self.mode)
+            self.scan_dict = self.doc_process.scan_dict
             self.imageLabel.refresh(image, mode=self.det_type)
             self.updateTable()
 
@@ -426,9 +400,13 @@ class MainWindow(QMainWindow):
         for suffix in self.supported_images:
             img_list += gb.glob(folder + r"/*"+suffix)
         return sorted(img_list, key=os.path.getmtime)
-     
-    def messager(self, msg, flag="info"): 
+        
+    def messager(self, msg, flag="info", display=False): 
         self.logger_flags[flag](msg)
+        if display: self.displayStatus(msg)
+            
+    def displayStatus(self, msg):
+        self.statusLabel.setText(msg)
         
     def closeEvent(self, ev):   
         reply = QMessageBox.question(

@@ -58,3 +58,29 @@
 
 2021-01-26 23:21:57,921 - HMI.py[line:431] - INFO: i-shopOCR user interface has been closed.
 
+2021-01-26 23:59:29,286 - HMI.py[line:431] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-27 00:01:27,942 - HMI.py[line:431] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-27 01:30:26,576 - HMI.py[line:418] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\2021-01-13_18_42_00_660.bmp...
+2021-01-27 01:30:27,745 - HMI.py[line:418] - INFO: 交接单检测完成。
+2021-01-27 01:40:07,013 - HMI.py[line:417] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\2021-01-13_18_42_00_660.bmp ...
+2021-01-27 01:40:08,203 - HMI.py[line:417] - INFO: 交接单检测完成。
+2021-01-27 01:40:51,048 - HMI.py[line:417] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\2021-01-13_18_42_00_660.bmp ...
+2021-01-27 01:40:52,219 - HMI.py[line:417] - INFO: 交接单检测完成。
+2021-01-27 01:40:52,298 - HMI.py[line:417] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\doc_2.png ...
+2021-01-27 01:40:52,959 - HMI.py[line:417] - INFO: 交接单检测完成。
+2021-01-27 01:50:11,791 - HMI.py[line:417] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-27 01:50:24,897 - HMI.py[line:417] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\2021-01-13_18_42_00_660.bmp ...
+2021-01-27 01:50:26,043 - HMI.py[line:417] - INFO: 交接单检测完成。
+2021-01-27 01:50:26,125 - HMI.py[line:417] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\doc_2.png ...
+2021-01-27 01:50:26,789 - HMI.py[line:417] - INFO: 交接单检测完成。
+2021-01-27 01:50:33,084 - HMI.py[line:417] - INFO: i-shopOCR user interface has been closed.
+
+2021-01-27 01:59:45,020 - HMI.py[line:405] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\2021-01-13_18_42_00_660.bmp ...
+2021-01-27 01:59:46,198 - HMI.py[line:405] - INFO: 交接单检测完成。
+2021-01-27 01:59:46,280 - HMI.py[line:405] - INFO: 开始检测交接单 E:/Projects/Part_Number/dataset/doc\doc_2.png ...
+2021-01-27 01:59:46,972 - HMI.py[line:405] - INFO: 交接单检测完成。
+2021-01-27 01:59:52,676 - HMI.py[line:405] - INFO: i-shopOCR user interface has been closed.
+

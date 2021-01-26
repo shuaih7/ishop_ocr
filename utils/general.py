@@ -18,6 +18,19 @@ abs_path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(abs_path)
 
 
+def draw_results(image, results, isClosed=True, size=0.6, color=(0,255,0), thickness=3):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    
+    for result in results:
+        line = np.array(result[0], dtype=np.int32)
+        pt = (int(line[0][0]), int(line[0][1]))
+        line = line.reshape((-1,1,2))
+        image = cv2.polylines(image, [line], isClosed=isClosed, color=color, thickness=thickness)
+        image = cv2.putText(image, result[1][0], pt, fontFace=font, 
+            fontScale=size, color=color, thickness=max(1,thickness-1))
+    return image 
+
+
 def draw_polylines(image, polylines, texts=None, isClosed=True, size=0.6, color=(0,255,0), thickness=3):
     font = cv2.FONT_HERSHEY_SIMPLEX
     polylines = np.array(polylines, dtype=np.int32)#.reshape((-1,1,2))
