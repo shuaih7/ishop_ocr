@@ -18,6 +18,7 @@ def set_style(name, height, bold=False):
     style = xlwt.XFStyle()
     font = xlwt.Font()
     font.name = name
+    
     if bold: font.bold = bold
     font.color_index = 4
     font.height = height
@@ -26,6 +27,14 @@ def set_style(name, height, bold=False):
     al.vert = 0x01      # 设置垂直居中
     style.alignment = al
     style.font = font
+    
+    borders = xlwt.Borders()
+    borders.left = 1
+    borders.right = 1
+    borders.top = 1
+    borders.bottom = 1
+    style.borders = borders
+    
     return style
     
     
@@ -33,27 +42,29 @@ def write_title(sheet, base_space=2, sr=0, sc=0):
     # Create the title
     sheet.write_merge(sr,sr,sc,sc+9,"铸件交接单", set_style('Calibri',560,True))
     
+    style=set_style('Calibri',360,True)
+    
     # Create the first row
     sr += 1
-    sheet.write(sr,sc,"确认人:",set_style('Calibri',360,True))
-    sheet.write_merge(sr,sr,sc+1,sc+base_space,' ')#合并行单元格
-    sheet.write(sr,sc+base_space+1,"日期:",set_style('Calibri',360,True))
-    sheet.write_merge(sr,sr,sc+base_space+2,sc+2*base_space+1,' ')#合并行单元格
-    sheet.write(sr,sc+2*base_space+2,"审核:",set_style('Calibri',360,True))
-    sheet.write_merge(sr,sr,sc+2*base_space+3,sc+2*base_space+5,' ')#合并行单元格
+    sheet.write(sr,sc,"确认人:",style)
+    sheet.write_merge(sr,sr,sc+1,sc+base_space,' ',style)#合并行单元格
+    sheet.write(sr,sc+base_space+1,"日期:",style)
+    sheet.write_merge(sr,sr,sc+base_space+2,sc+2*base_space+1,' ',style)#合并行单元格
+    sheet.write(sr,sc+2*base_space+2,"审核:",style)
+    sheet.write_merge(sr,sr,sc+2*base_space+3,sc+2*base_space+5,' ',style)#合并行单元格
     
     # Create the second row
     sr += 1
-    sheet.write(sr,sc,"零件号:",set_style('Calibri',360,True))
-    sheet.write_merge(sr,sr,sc+1,sc+base_space,' ')#合并行单元格
-    sheet.write(sr,sc+base_space+1,"批次号:",set_style('Calibri',360,True))
-    sheet.write_merge(sr,sr,sc+base_space+2,sc+2*base_space+1,' ')#合并行单元格
-    sheet.write_merge(sr,sr,sc+2*base_space+2,sc+2*base_space+5,' ')#合并行单元格
+    sheet.write(sr,sc,"零件号:",style)
+    sheet.write_merge(sr,sr,sc+1,sc+base_space,' ',style)#合并行单元格
+    sheet.write(sr,sc+base_space+1,"批次号:",style)
+    sheet.write_merge(sr,sr,sc+base_space+2,sc+2*base_space+1,' ',style)#合并行单元格
+    sheet.write_merge(sr,sr,sc+2*base_space+2,sc+2*base_space+5,' ',style)#合并行单元格
     
     # Create the third row
     sr += 1
-    sheet.write(sr,sc,"序号",set_style('Calibri',360,True))
-    sheet.write_merge(sr,sr,sc+1,sc+2*base_space+5,'铸件号',set_style('Calibri',360,True))
+    sheet.write(sr,sc,"序号",style)
+    sheet.write_merge(sr,sr,sc+1,sc+2*base_space+5,'铸件号',style)
     
     sheet.row(0).set_style(xlwt.easyxf('font:height 594;'))
     for i in range(1,4):

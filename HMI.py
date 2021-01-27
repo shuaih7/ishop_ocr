@@ -30,6 +30,7 @@ from paddleocr.paddleocr import PaddleOCR
 #from paddleocr2.paddleocr import PaddleOCR
 from log import getLogger
 from process import DocProcess, OcrProcess
+from widgets.PartTable import PartTable
 from widgets.ConfigWidget import ConfigWidget
 from widgets.PushButton import PushButton
 from utils import write_excel, LuminatorControl
@@ -269,7 +270,7 @@ class MainWindow(QMainWindow):
                 if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
             self.image = image
             
-            image, results = self.doc_process(img_file, params, self.mode)
+            image, results = self.doc_process(image, params, self.mode)
             self.scan_dict = self.doc_process.scan_dict
             self.imageLabel.refresh(image, mode=self.det_type)
             self.updateTable()

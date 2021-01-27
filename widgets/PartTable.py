@@ -88,7 +88,7 @@ class PartTable(QTableWidget):
         elif item.text() == "报废":
             status = "未确认"
             item.setText(status)
-            item.setBackground(QBrush(self.self.check_color))
+            item.setBackground(QBrush(self.match_color))
         self.info_dict[number] = status
         
     def getCheckList(self):
