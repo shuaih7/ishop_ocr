@@ -15,7 +15,9 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QTabWidget, QMessageBox, QFileDialog
 
 abs_path = os.path.abspath(os.path.dirname(__file__))
+cfg_path = os.path.abspath(os.path.join(abs_path, ".."))
 sys.path.append(abs_path)
+sys.path.append(cfg_path)
 
 
 class ConfigWidget(QTabWidget):
@@ -43,6 +45,7 @@ class ConfigWidget(QTabWidget):
         self.saveConfig()
         self.exitConfig()
         self.generalCfgSignal.emit()
+        self.messager("常规设置已更新。", flag="info", display=True)
         
     @pyqtSlot()    
     def cameraConfig(self):
@@ -55,6 +58,7 @@ class ConfigWidget(QTabWidget):
         self.saveConfig()
         self.exitConfig()
         self.cameraCfgSignal.emit()
+        self.messager("相机设置已更新。", flag="info", display=True)
     
     @pyqtSlot()    
     def lightConfig(self):    
@@ -63,6 +67,7 @@ class ConfigWidget(QTabWidget):
         self.saveConfig()
         self.exitConfig()
         self.lightCfgSignal.emit()
+        self.messager("光源设置已更新。", flag="info", display=True)
     
     @pyqtSlot()    
     def modelConfig(self):  
@@ -88,6 +93,7 @@ class ConfigWidget(QTabWidget):
             self.saveConfig()
             self.exitConfig()
             self.modelCfgSignal.emit()
+        self.messager("模型设置已更新。", flag="info", display=True)
             
     @pyqtSlot()
     def setDocModelDir(self):
@@ -154,7 +160,7 @@ class ConfigWidget(QTabWidget):
         self.close()
     
     def saveConfig(self):
-        json_file = os.path.join(abs_path, "config.json")
+        json_file = os.path.join(cfg_path, "config.json")
         with open(json_file, "w", encoding="utf-8") as f:
             cfg_obj = json.dumps(self.config_matrix, indent=4)
             f.write(cfg_obj)

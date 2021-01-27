@@ -28,7 +28,7 @@
    <string notr="true">font-size: 20px;height: 30px;width: 80px; background-color:rgb(222,222,222)</string>
   </property>
   <property name="currentIndex">
-   <number>0</number>
+   <number>3</number>
   </property>
   <property name="iconSize">
    <size>
@@ -39,7 +39,7 @@
   <widget class="QWidget" name="generalTab">
    <attribute name="icon">
     <iconset>
-     <normaloff>data/icons/general_icon.png</normaloff>data/icons/general_icon.png</iconset>
+     <normaloff>../data/icons/general_icon.png</normaloff>../data/icons/general_icon.png</iconset>
    </attribute>
    <attribute name="title">
     <string>常规设置</string>
@@ -204,7 +204,14 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../FabricUI/FabricUI/icon/folder_icon.png</normaloff>../FabricUI/FabricUI/icon/folder_icon.png</iconset>
+            <normaloff>../FabricUI/FabricUI/icon/folder_icon.png</normaloff>
+            <selectedon>../data/icons/folder_icon.png</selectedon>../FabricUI/FabricUI/icon/folder_icon.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -275,7 +282,13 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../FabricUI/FabricUI/icon/folder_icon.png</normaloff>../FabricUI/FabricUI/icon/folder_icon.png</iconset>
+            <normaloff>../data/icons/folder_icon.png</normaloff>../data/icons/folder_icon.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -380,7 +393,7 @@
    </property>
    <attribute name="icon">
     <iconset>
-     <normaloff>data/icons/camera_icon.png</normaloff>data/icons/camera_icon.png</iconset>
+     <normaloff>../data/icons/camera_icon.png</normaloff>../data/icons/camera_icon.png</iconset>
    </attribute>
    <attribute name="title">
     <string>相机设置</string>
@@ -699,7 +712,7 @@
    </property>
    <attribute name="icon">
     <iconset>
-     <normaloff>data/icons/light_icon.png</normaloff>data/icons/light_icon.png</iconset>
+     <normaloff>../data/icons/light_icon.png</normaloff>../data/icons/light_icon.png</iconset>
    </attribute>
    <attribute name="title">
     <string>光源设置</string>
@@ -887,7 +900,7 @@
    </property>
    <attribute name="icon">
     <iconset>
-     <normaloff>data/icons/model_icon.png</normaloff>data/icons/model_icon.png</iconset>
+     <normaloff>../data/icons/model_icon.png</normaloff>../data/icons/model_icon.png</iconset>
    </attribute>
    <attribute name="title">
     <string>模型设置</string>
@@ -1075,7 +1088,13 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../FabricUI/FabricUI/icon/folder_icon.png</normaloff>../FabricUI/FabricUI/icon/folder_icon.png</iconset>
+            <normaloff>../data/icons/folder_icon.png</normaloff>../data/icons/folder_icon.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -1153,7 +1172,13 @@
           </property>
           <property name="icon">
            <iconset>
-            <normaloff>../FabricUI/FabricUI/icon/folder_icon.png</normaloff>../FabricUI/FabricUI/icon/folder_icon.png</iconset>
+            <normaloff>../data/icons/folder_icon.png</normaloff>../data/icons/folder_icon.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>25</width>
+            <height>25</height>
+           </size>
           </property>
          </widget>
         </item>

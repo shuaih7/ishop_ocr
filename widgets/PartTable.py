@@ -94,8 +94,8 @@ class PartTable(QTableWidget):
     def getCheckList(self):
         check_list = []
         for i in range(self.rowCount()):
-            if self.item(i,1).text() != "-" and self.item(i,2).text() != "报废":
-                check_list.append(self.item(i,0).text())
+            if self.item(i,0).text() != "-" and self.item(i,2).text() in ["未确认", "完好"]:
+                check_list.append(self.item(i,1).text())
         
         return check_list
         

@@ -48,9 +48,25 @@ class DocProcess(BaseProcess):
         return image, results
             
     def postprocess(self, image, results):
+        results = self.arrangeResults(results)
         results = self.filterScanDict(results)
         image = draw_results(image, results, size=2.0, color=(0,255,0), thickness=7)
         return image, results
+        
+    def arrangeResults(self, results):
+        # Rearrange the results according to the document range
+        arrange_res = []
+        anchors = []
+        
+        for result in results:
+            anchors.append(result[0][0][0])
+        anchors = np.argsort(anchors)
+        anchors = anchors[::-1]
+        
+        for index in anchors:
+            arrange_res.append(results[index])
+        
+        return arrange_res
     
     def filterScanDict(self, results):
         index = 0

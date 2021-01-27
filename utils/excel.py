@@ -30,38 +30,43 @@ def set_style(name, height, bold=False):
     
     
 def write_title(sheet, base_space=2, sr=0, sc=0):
+    # Create the title
+    sheet.write_merge(sr,sr,sc,sc+9,"铸件交接单", set_style('Calibri',560,True))
+    
     # Create the first row
-    sheet.write(sr,sc,"确认人:",set_style('Times New Roman',220,True))
+    sr += 1
+    sheet.write(sr,sc,"确认人:",set_style('Calibri',360,True))
     sheet.write_merge(sr,sr,sc+1,sc+base_space,' ')#合并行单元格
-    sheet.write(sr,sc+base_space+1,"日期:",set_style('Times New Roman',220,True))
+    sheet.write(sr,sc+base_space+1,"日期:",set_style('Calibri',360,True))
     sheet.write_merge(sr,sr,sc+base_space+2,sc+2*base_space+1,' ')#合并行单元格
-    sheet.write(sr,sc+2*base_space+2,"审核:",set_style('Times New Roman',220,True))
+    sheet.write(sr,sc+2*base_space+2,"审核:",set_style('Calibri',360,True))
     sheet.write_merge(sr,sr,sc+2*base_space+3,sc+2*base_space+5,' ')#合并行单元格
     
     # Create the second row
     sr += 1
-    sheet.write(sr,sc,"零件号:",set_style('Times New Roman',220,True))
+    sheet.write(sr,sc,"零件号:",set_style('Calibri',360,True))
     sheet.write_merge(sr,sr,sc+1,sc+base_space,' ')#合并行单元格
-    sheet.write(sr,sc+base_space+1,"批次号:",set_style('Times New Roman',220,True))
+    sheet.write(sr,sc+base_space+1,"批次号:",set_style('Calibri',360,True))
     sheet.write_merge(sr,sr,sc+base_space+2,sc+2*base_space+1,' ')#合并行单元格
     sheet.write_merge(sr,sr,sc+2*base_space+2,sc+2*base_space+5,' ')#合并行单元格
     
     # Create the third row
     sr += 1
-    sheet.write(sr,sc,"序号",set_style('Times New Roman',220,True))
-    sheet.write_merge(sr,sr,sc+1,sc+2*base_space+5,'铸件号',set_style('Times New Roman',220,True))
+    sheet.write(sr,sc,"序号",set_style('Calibri',360,True))
+    sheet.write_merge(sr,sr,sc+1,sc+2*base_space+5,'铸件号',set_style('Calibri',360,True))
     
-    for i in range(3):
-        sheet.row(i).set_style(xlwt.easyxf('font:height 540;'))
-    rows, align = 3, 2*base_space+5
+    sheet.row(0).set_style(xlwt.easyxf('font:height 594;'))
+    for i in range(1,4):
+        sheet.row(i).set_style(xlwt.easyxf('font:height 382;'))
+    rows, align = 4, 2*base_space+5
    
     return sheet, rows, align
     
 
 def write_content(sheet, index=0, number=' ', sr=3, sc=0, align=10):
-    sheet.write(sr,sc,str(index),set_style('Times New Roman',220))
-    sheet.write_merge(sr,sr,sc+1,align,number,set_style('Times New Roman',220,False))
-    sheet.row(sr).set_style(xlwt.easyxf('font:height 540;'))
+    sheet.write(sr,sc,str(index),set_style('Calibri',360))
+    sheet.write_merge(sr,sr,sc+1,align,number,set_style('Calibri',360,False))
+    sheet.row(sr).set_style(xlwt.easyxf('font:height 382;'))
 
     return sheet
 

@@ -5,7 +5,7 @@
         "gpu_mem": 2000,
         "disp_intv": 20,
         "doc_folder": "E:/Projects/Part_Number/dataset/doc",
-        "ocr_folder": "E:/Projects/Part_Number/dataset/text_single"
+        "ocr_folder": "E:/Projects/Part_Number/dataset/test_single"
     },
     "Camera": {
         "DeviceSerialNumber": "0000000000",

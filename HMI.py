@@ -32,7 +32,7 @@ from log import getLogger
 from process import DocProcess, OcrProcess
 from widgets.ConfigWidget import ConfigWidget
 from widgets.PushButton import PushButton
-from utils import draw_polylines, draw_results, write_excel, SNPatch, LuminatorControl
+from utils import write_excel, LuminatorControl
 
 
 class MainWindow(QMainWindow):
@@ -70,15 +70,14 @@ class MainWindow(QMainWindow):
         
         # Initialize the inference processing
         self.doc_process = DocProcess(messager=self.messager)
-        self.ocr_process = OcrProcess(messager=self.messager)
+        self.ocr_process = OcrProcess(messager=self.messager, app=QApplication)
+        self.imageLabel.rois = self.ocr_process.rois
             
         # General Initialization
         self.image = None
         self.camera = None
         self.isLive = False
         self.det_type = "doc"
-        self.patcher = SNPatch()
-        self.imageLabel.rois = self.patcher.set_roi()
         self.lc = LuminatorControl("COM7")
         self.doc_folder = self.config_matrix["Global"]["doc_folder"]
         self.ocr_folder = self.config_matrix["Global"]["ocr_folder"]
@@ -203,79 +202,35 @@ class MainWindow(QMainWindow):
         self.lc.set_part()
         self.part_list = []
         params = self.config_matrix["Model_OCR"]["infer_params"]
+        self.ocr_process.use_patch = self.config_matrix["Model_OCR"]["use_patch"]
+        self.ocr_process.angle = self.config_matrix["Model_OCR"]["angle"]
         
         if self.mode == "file":
             img_list = self.imageLoader(self.ocr_folder)
             
             for img_file in img_list:
-                self.part_list = [] # Clear the result list
-                image = cv2.imread(img_file, cv2.IMREAD_COLOR)
-                if image is None: 
-                    continue
-                else:
-                    angle = self.config_matrix["Model_OCR"]["angle"]
-                    try:
-                        results = self.patcher(image, angle, self.model_ocr, params, QApplication)
-                    except Exception as expt:
-                        self.messager("Error using the patch method for recognition.", flag="warning")
-                        results = []
-                    # results = self.patcher(image, angle, self.model_ocr, params, QApplication)
-                    
-                for result in results:
-                    self.part_list.append([result[1][0], str(result[2])])
-                    points = np.array(result[0],dtype=np.float32)
-                    texts = result[1][0]
-                    
-                    if result[-1]: color = (0,255,0)
-                    else: color = (255,0,0) 
-                    image = draw_polylines(image, [points], [texts], size=2.0, color=color, thickness=7)
-                # _, filename = os.path.split(img_file)
-                # save_path = os.path.join(r"E:\Projects\Part_Number\dataset\res", filename)
-                # cv2.imwrite(save_path, image)
-                
+                image, results = self.ocr_process(img_file, params, self.mode)
+                self.part_list = self.ocr_process.part_list
                 self.imageLabel.refresh(image)
                 QApplication.processEvents()    
                 self.updateTable()
                 
         elif self.mode == "live":
-            if self.image is None: return
             if self.camera is None or not self.isLive: return
 
-            #use realtime image
             self.camera.TriggerSoftware.send_command()
             image_raw = self.camera.data_stream[0].get_image()
             self.image = image_raw.get_numpy_array()
             image = self.image
-            if image is None:
-                # todo
-                pass
+            if image is None: pass
             else:  # Convert gray scale to BGR
                 c = image.shape[-1]
                 if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
                 self.image = image
-                self.imageLabel.refresh(self.image)
 
-            if self.config_matrix["Model_OCR"]["use_patch"]:
-                angle = self.config_matrix["Model_OCR"]["angle"]
-                try:
-                    results = self.patcher(image, angle, self.model_ocr, params, QApplication)
-                except Exception as expt:
-                    self.messager("Error using the patch method for recognition.", flag="warning")
-                    results = []
-                # results = self.patcher(image, self.model_ocr, params, QApplication)
-            else:
-                results = self.model_ocr.ocr(image, **params)
+            image, results = self.ocr_process(image, params, self.mode)
+            self.part_list = self.ocr_process.part_list
             
-            for result in results:
-                self.part_list.append([result[1][0], str(result[2])]) # TODO: result[1] -> [result[1][0], position]
-                points = np.array(result[0],dtype=np.float32)
-                texts = result[1][0]
-                self.messager(texts)
-                
-                if result[-1]: color = (0,255,0)
-                else: color = (255,0,0) 
-                image = draw_polylines(image, [points], [texts], size=2.0, color=color, thickness=7)
-             
             self.imageLabel.refresh(image, mode=self.det_type)
             QApplication.processEvents()   
             self.updateTable()
@@ -321,16 +276,18 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def createReport(self):
-        self.messager("Creating reports ...", flag="info")
+        self.messager("报告生成中 ...", flag="info", display=True)
         save_dir = os.path.join(abs_path, "data/report")
         match_list = self.partTable.getCheckList()
         write_excel(match_list, save_dir)
+        self.messager("报告生成完成。", flag="info", display=True)
         
     @pyqtSlot()
     def clearAll(self):
         self.partTable.clearRows()
         self.scan_dict = {}
         self.part_list = []
+        self.messager("件号匹配列表已清空。", flag="info", display=True)
         
     @pyqtSlot()
     def systemConfig(self):

@@ -15,7 +15,6 @@ import numpy as np
 
 from .general import *
 from .excel import write_excel
-from .enhancement import SNPatch
 from .luminator_control import LuminatorControl
 
 
