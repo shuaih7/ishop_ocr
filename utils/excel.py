@@ -90,7 +90,7 @@ def write_excel(match_list, save_dir):
     sheet, rows, align = write_title(sheet, base_space, sr, sc)
     
     for i, number in enumerate(match_list):
-        sheet = write_content(sheet, i, number, rows+i, sc, align)
+        sheet = write_content(sheet, i+1, number, rows+i, sc, align)
     
     timestr = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) 
     save_name = os.path.join(save_dir, timestr + ".xls")

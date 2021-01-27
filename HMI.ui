@@ -117,7 +117,7 @@
         </column>
         <column>
          <property name="text">
-          <string>零件号</string>
+          <string>        零件号        </string>
          </property>
          <property name="font">
           <font>

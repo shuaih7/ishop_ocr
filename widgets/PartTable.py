@@ -39,6 +39,7 @@ class PartTable(QTableWidget):
         self.clearRows()
         unmap_parts_list = []
         self.info_dict = info_dict
+        self.info_list = info_list
         result_dict = copy.deepcopy(info_dict)
         
         row = 0
@@ -73,7 +74,7 @@ class PartTable(QTableWidget):
         if item.column() != 2: return
         
         row = item.row()
-        number = self.item(row,0).text()
+        number = self.item(row,1).text()
         if self.item(row, 2).text() not in self.status_list: 
             return
         
@@ -89,15 +90,7 @@ class PartTable(QTableWidget):
             status = "未确认"
             item.setText(status)
             item.setBackground(QBrush(self.match_color))
-        self.info_dict[number] = status
-        
-    def getCheckList(self):
-        check_list = []
-        for i in range(self.rowCount()):
-            if self.item(i,0).text() != "-" and self.item(i,2).text() in ["未确认", "完好"]:
-                check_list.append(self.item(i,1).text())
-        
-        return check_list
+        self.info_dict[number]["status"] = status
         
     def insert(self, row, names, color):
         if len(names) != 3:
@@ -117,7 +110,21 @@ class PartTable(QTableWidget):
         self.item(row, 2).setBackground(color)
         self.item(row, 1).setToolTip(number)
         
+    def getCheckList(self):
+        match_list = []
+        
+        for i in range(self.rowCount()):
+            pos = self.item(i,0).text()
+            number = self.item(i,1).text()
+            status = self.item(i,2).text()
             
+            if status in ["未匹配", "未确认", "完好"] and pos != "-":
+                match_list.append(number)
+                
+        return match_list
+        
     def clearRows(self):
         for i in range(self.rowCount(),-1,-1):
             self.removeRow(i)
+        self.info_dict = {}
+        self.info_list = []
