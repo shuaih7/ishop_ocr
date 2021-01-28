@@ -221,13 +221,12 @@ class MainWindow(QMainWindow):
 
             self.camera.TriggerSoftware.send_command()
             image_raw = self.camera.data_stream[0].get_image()
-            self.image = image_raw.get_numpy_array()
-            image = self.image
+            image = image_raw.get_numpy_array()
             if image is None: pass
             else:  # Convert gray scale to BGR
                 c = image.shape[-1]
                 if c != 3: image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
-                self.image = image
+            self.image = image
 
             image, results = self.ocr_process(image, params, self.mode)
             self.part_list = self.ocr_process.part_list

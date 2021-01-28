@@ -1,16 +1,16 @@
 {
     "Global": {
-        "mode": "file",
+        "mode": "live",
         "use_gpu": true,
         "gpu_mem": 2000,
         "disp_intv": 20,
         "doc_folder": "E:/Projects/Part_Number/dataset/doc",
-        "ocr_folder": "E:/Projects/Part_Number/dataset/test_single"
+        "ocr_folder": "E:/Projects/Part_Number/dataset/res"
     },
     "Camera": {
         "DeviceSerialNumber": "0000000000",
-        "ExposureTime": 6000,
-        "Gain": 20,
+        "ExposureTime": 32000,
+        "Gain": 0,
         "Binning": 4
     },
     "Light": {},
